@@ -149,3 +149,5 @@ webserver/konsti
 examples/*/simpledocs/_build
 docs/docs-branch
 data/*
+tasks/avv/tasks/*
+tasks/avv/full_data.csv
