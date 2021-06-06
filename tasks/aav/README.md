@@ -1,6 +1,6 @@
 ### Dataset description
 
-The original sequence from the AVV study is UniProt [P03135](https://www.uniprot.org/uniprot/P03135). A copy of the wildtype sequence can be found in this folder as P03135.fasta
+The original sequence from the aav study is UniProt [P03135](https://www.uniprot.org/uniprot/P03135). A copy of the wildtype sequence can be found in this folder as P03135.fasta
 On the reference sequence, mutations where introduced starting from region `[561, 588]`, which reflects the AA sequence: `DEEEIRTTNPVATEQYGSVSTNLQRGNR`.
 
 All tasks come in two modalities: `regression` and `binary`. The latter is obtained by applying a cutoff on the regression task.
