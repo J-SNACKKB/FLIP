@@ -149,5 +149,5 @@ webserver/konsti
 examples/*/simpledocs/_build
 docs/docs-branch
 data/*
-tasks/aav/tasks/*
+tasks/*/tasks/*
 tasks/aav/full_data.csv
