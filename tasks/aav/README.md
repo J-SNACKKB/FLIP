@@ -22,8 +22,12 @@ The full dataset can be found in the zipped CSV `full_data.csv.zip`. All "tasks"
 
 Additional columns to create tasks:
 - `design_task`: `train` if in `category` in `'previous_chip_viable', 'previous_chip_nonviable', 'stop', 'singles', 'wild_type', 'random_doubles'`, `test` otherwise
+    - 28k training
+    - 186k test
 - `natural_task_1`: `train` for 80% of data in `category` in `'previous_chip_viable', 'previous_chip_nonviable', 'stop', 'singles', 'wild_type', 'random_doubles'`, `test` for 20% of data, `unknown` otherwise
+    ---> [CD] check numbers
 - `natural_task_2`: `train` for data in `category` in `'previous_chip_viable', 'previous_chip_nonviable', 'stop', 'singles', 'wild_type', 'random_doubles'` with `number_of_mutations <= 20` , `test` for `number_of_mutations > 20`, `unknown` otherwise
+    ---> [CD] check numbers by changing threshold
 
 ### Tasks
 
