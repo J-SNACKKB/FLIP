@@ -151,3 +151,4 @@ docs/docs-branch
 data/*
 tasks/*/tasks/*
 tasks/aav/full_data.csv
+tasks/meltome/full_dataset.json
