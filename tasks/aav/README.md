@@ -23,19 +23,19 @@ The full dataset can be found in the zipped CSV `full_data.csv.zip`. All "tasks"
 Additional columns to create tasks:
 - `design_task`: `train` if in `category` in `'previous_chip_viable', 'previous_chip_nonviable', 'stop', 'singles', 'wild_type', 'random_doubles'`, `test` otherwise
   ```
-  Set design_task has 28102 train and 186075 test sequences. 80% of test is positive.
+  Set design_task has 28102 train and 186075 test sequences. 55% of test is positive.
   ```
 - `design_task_reversed`: `train` and `test` from `design_task` are reversed
   ```
-  Set design_task_reversed has 186075 train and 28102 test sequences. 79% of test is positive.
+  Set design_task_reversed has 186075 train and 28102 test sequences. 12% of test is positive.
   ```
 - `natural_task_1`: `train` for 80% of data in `category` in `'previous_chip_viable', 'previous_chip_nonviable', 'stop', 'singles', 'wild_type', 'random_doubles'`, `test` for 20% of data, `unknown` otherwise
   ```
-  Set natural_task_1 has 22572 train and 5530 test sequences. 79% of test is positive.
+  Set natural_task_1 has 22350 train and 5752 test sequences. 12% of test is positive.
   ```
 - `natural_task_2`: `train` for data in `category` in `'previous_chip_viable', 'previous_chip_nonviable', 'stop', 'singles', 'wild_type', 'random_doubles'` with `number_of_mutations <= 7` , `test` for `number_of_mutations > 7`, `unknown` otherwise
   ```
-  Set natural_task_2 has 27661 train and 441 test sequences. 76% of test is positive.
+  Set natural_task_2 has 27661 train and 441 test sequences. 13% of test is positive.
   ```
 
 ### Tasks
