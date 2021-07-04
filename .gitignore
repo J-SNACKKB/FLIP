@@ -152,3 +152,4 @@ data/*
 tasks/*/tasks/*
 tasks/aav/full_data.csv
 tasks/meltome/full_dataset.json
+tasks/meltome/full_dataset_sequences.fasta
