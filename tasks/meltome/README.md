@@ -24,3 +24,11 @@ Full dataset contains a list of proteins with the following structure:
     # ...
 ]
 }
+```
+
+All sequences in the set where exported as fasta in the `full_dataset_sequences.fasta` file.
+This file, in turn, was used to cluster sequences at 20% sequence identify via MMSeqs2 like so:
+
+```
+
+```
