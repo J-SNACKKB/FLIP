@@ -19,8 +19,10 @@ The full dataset can be found in the zipped CSV `full_data.csv.zip`. All "tasks"
 - `full_aa_sequence`: the sequence from [P03135](https://www.uniprot.org/uniprot/P03135) with the region `[561, 588]` replaced by the `mutated_region`
 - `binary_score`: a binarization of the `score`, according to a Gaussian mixture model, as done in the original publication.
 - `reference_region`: the reference region, as above.
+- Additional columns to create tasks (see following)
 
-Additional columns to create tasks:
+### Tasks
+
 - `design_task`: `train` if in `category` in `'previous_chip_viable', 'previous_chip_nonviable', 'stop', 'singles', 'wild_type', 'random_doubles'`, `test` otherwise
   ```
   Set design_task has 28102 train and 186075 test sequences. 55% of test is positive.
@@ -37,8 +39,6 @@ Additional columns to create tasks:
   ```
   Set natural_task_2 has 27661 train and 441 test sequences. 13% of test is positive.
   ```
-
-### Tasks
 
 All tasks are contained in the `tasks.zip` file. These are CSV with colums:
 
