@@ -57,6 +57,7 @@ def load_dataset(dataset, split, mut_only, val_split = True):
         
     df = pd.read_csv(path)
     
+    df.sequence.apply(lambda s: re.sub(r'[^A-Z]', '', s.upper())) #remove special characters
     max_length = max(df.sequence.str.len())
     
     test = df[df.set == 'test']
