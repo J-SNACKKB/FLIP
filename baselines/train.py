@@ -93,3 +93,50 @@ def train_linear(train_iterator, val_iterator, device, model, optimizer, r_b, ep
             if val_loss[-1] >= np.min(val_loss[:-20]): 
                 print('Validation loss no longer going down - finished training')
                 break
+    
+def train_esm_linear(train_iterator, val_iterator, device, model, criterion, optimizer, epoch_num):
+        
+        val_loss = []
+        
+        model.to(device)
+
+        for epoch in range(epoch_num):
+            model.train() 
+            for i, (inp, l) in enumerate(train_iterator):
+                optimizer.zero_grad()
+                
+                inp = inp.to(device)
+                m = (inp[:, :, 0] != 0).long().to(device)
+                l = l.to(device) 
+
+                out = model(inp, m.unsqueeze(-1)) 
+                loss = criterion(out, l.unsqueeze(-1))
+                loss.backward() 
+                optimizer.step()
+
+            with torch.no_grad(): # evaluate validation loss here 
+
+                model.eval()
+                val_loss_epochs = []
+
+                for (inp, l) in val_iterator:
+                    
+                    inp = inp.to(device)
+                    m = (inp[:, :, 0] != 0).long().to(device)
+                    l = l.to(device)
+
+                    out = model(inp, m)  # Forward prop without storing gradients
+
+                    loss = criterion(out, l.unsqueeze(-1)) # Calculate validation loss 
+                    val_loss_epochs.append(loss.item())
+
+                val_loss_epoch = np.mean(val_loss_epochs)
+                val_loss.append(round(val_loss_epoch, 3))
+
+            print('epoch: %d loss: %.3f val loss: %.3f' % (epoch + 1, loss.item(), val_loss_epoch))
+
+            # evalutate whether validation loss is dropping; if not, stop
+            if epoch > 21:
+                if val_loss[-1] >= np.min(val_loss[:-20]): 
+                    print('Validation loss no longer going down - finished training')
+                    break

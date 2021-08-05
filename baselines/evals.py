@@ -140,4 +140,35 @@ def evaluate_linear(data_iterator, model, device, r_b, SAVE_PATH):
     with open(SAVE_PATH+'.pickle', 'wb') as f:
         pickle.dump((predicted, labels_ls), f)
 
+def evaluate_esm(data_iterator, device, model, size, SAVE_PATH):
+    """ run data through model and print eval stats """
     
+    # create a tensor to hold results
+    out = np.empty([size])
+    labels = np.empty([size])
+
+    s = 0 
+    
+    model.eval()
+    model.to(device)
+
+    with torch.no_grad(): # evaluate validation loss here 
+        for i, (inp, l) in enumerate(data_iterator):
+            
+            inp = inp.to(device)
+            m = (inp[:, :, 0] != 0).long().to(device)
+
+            o = model(inp, m).squeeze().cpu()  # Forward prop without storing gradients
+
+            b = inp.shape[0] 
+            out[s: s + b:] = o
+            labels[s: s + b:] = l
+
+            s += b
+    
+    print('size of predicted:', out.shape)
+
+    regression_eval(predicted=out, labels=labels, print_stats=False, SAVE_PATH=SAVE_PATH)
+
+    with open(SAVE_PATH+'.pickle', 'wb') as f:
+        pickle.dump((out, labels), f)

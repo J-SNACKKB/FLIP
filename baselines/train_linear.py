@@ -59,7 +59,7 @@ def create_parser():
 
 def main(args):
     
-    device = 'cuda:'+args.gpu
+    device = torch.device('cuda:'+args.gpu)
     split = split_dict[args.split]
     dataset = re.findall(r'(\w*)\_', args.split)[0]
 
@@ -81,7 +81,7 @@ def main(args):
     train_linear(train_iterator, val_iterator, device, linear, optimizer,  r_b = 'r', epoch_num = 100)
     
     # eval
-    EVAL_PATH = 'evals/'+dataset+'/'+split
+    EVAL_PATH = 'evals/'+dataset+'/'+split+'/linear/'
     
     evaluate_linear(train_iterator, linear, device, 'r', EVAL_PATH+'_train') # creates tuples
     evaluate_linear(test_iterator, linear, device, 'r', EVAL_PATH+'_test') # 
