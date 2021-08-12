@@ -79,3 +79,13 @@ Bibtex:
   publisher={Nature Publishing Group}
 }
 ```
+
+### Data licensing
+
+Upon request, the authors of the manuscript wish to make it known that the original dataset obtainable from http://meltomeatlas.proteomics.wzw.tum.de:5003 is:
+
+> is free for anyone to use.
+> No need for licenses
+> Referencing/acknowledging the originators of the data would be good enough for me.
+
+The modified data available in this repository and in the `tasks` falls under [AFL-3](https://opensource.org/licenses/AFL-3.0).

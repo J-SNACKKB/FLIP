@@ -63,3 +63,8 @@ Bibtex:
   publisher={Nature Publishing Group}
 }
 ```
+
+### Data licensing
+
+The RWA data was downloaded from [GitHub](https://github.com/churchlab/Deep_diversification_AAV/tree/main/Data) which doesn't feature a license.
+Modified data available in this repository and in the `tasks` falls under [AFL-3](https://opensource.org/licenses/AFL-3.0).

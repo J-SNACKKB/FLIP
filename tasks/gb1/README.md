@@ -49,3 +49,8 @@ issn = {2050-084X},
 publisher = {eLife Sciences Publications, Ltd},
 }
 ```
+
+### Data licensing
+
+The RWA data downloaded from elife is subject to [Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+Modified data available in this repository and in the `tasks` falls under [AFL-3](https://opensource.org/licenses/AFL-3.0).
