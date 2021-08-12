@@ -45,3 +45,21 @@ All tasks are contained in the `tasks.zip` file. These are CSV with colums:
 - `sequence`: the AA sequence. May contain special characters!
 - `target`: the prediction target. This may be continuous (`regression`), or True/False (`binary`)
 - `set`: either `train` or `test`, if the sequence should be used for training or testing your model!
+
+### Cite
+From the publisher:
+> Bryant, D.H., Bashir, A., Sinai, S. et al. Deep diversification of an AAV capsid protein by machine learning. Nat Biotechnol 39, 691–696 (2021). https://doi.org/10.1038/s41587-020-00793-4
+
+Bibtex:
+```
+@article{bryant2021deep,
+  title={Deep diversification of an AAV capsid protein by machine learning},
+  author={Bryant, Drew H and Bashir, Ali and Sinai, Sam and Jain, Nina K and Ogden, Pierce J and Riley, Patrick F and Church, George M and Colwell, Lucy J and Kelsic, Eric D},
+  journal={Nature Biotechnology},
+  volume={39},
+  number={6},
+  pages={691--696},
+  year={2021},
+  publisher={Nature Publishing Group}
+}
+```
