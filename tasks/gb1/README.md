@@ -1,3 +1,5 @@
+🟢 ACTIVE
+
 ### Dataset description
 
 The GB1 "four" variations set stems from a [2016 publication](https://elifesciences.org/articles/16965) in which mutations at four sites (V39, D40, G41 and V54) were probed against a binding assay. 

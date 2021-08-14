@@ -1,3 +1,5 @@
+🟢 ACTIVE
+
 ### Dataset description
 
 The original sequence from the aav study is UniProt [P03135](https://www.uniprot.org/uniprot/P03135). A copy of the wildtype sequence can be found in this folder as P03135.fasta
