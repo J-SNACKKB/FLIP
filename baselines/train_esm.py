@@ -42,12 +42,19 @@ split_dict = {
 
 def create_parser():
     parser = argparse.ArgumentParser(
-        description="train the base of linear model"
+        description="train esm"
     )
 
     parser.add_argument(
         "split",
+        choices = ["aav_dt1", "aav_dt2", "aav_nt1", "aav_nt2", "cas_neg", "cas_pos", "meltome_clust", "meltome_full", "meltome_mixed"],
         type=str,
+    )
+
+    parser.add_argument(
+        "esm_type",
+        choices = ["esm1b", "esm1v", "esm1b_rand", "esm1v_rand"],
+        type = str
     )
 
     parser.add_argument(
@@ -55,29 +62,38 @@ def create_parser():
         type=str
     )
 
+    parser.add_argument(
+        "--mean", 
+        action="store_true"
+    )
+
     return parser
 
 def main(args):
     
+    torch.manual_seed(10)
+    random.seed(10)
     device = torch.device('cuda:'+args.gpu)
     split = split_dict[args.split]
     dataset = re.findall(r'(\w*)\_', args.split)[0]
 
     batch_size = 256
 
-    PATH = '/data/v-jodymou/embeddings/'+dataset+'/1b/'+split+'/'
+    PATH = '/data/v-jodymou/embeddings/' + dataset + '/' + args.esm_type + '/' + split + '/'
 
-    #train = torch.load(PATH + 'train_aa.pt') #data_len x seq x 1280
-    #train_l = torch.load(PATH + 'train_labels.pt') 
+    if args.mean:
+        train = torch.load(PATH + 'train_mean.pt') #data_len x seq x 1280
+        test = torch.load(PATH + 'test_mean.pt') #data_len x seq x 1280
+    else:
+        train = torch.load(PATH + 'train_aa.pt') #data_len x seq x 1280
+        test = torch.load(PATH + 'test_aa.pt') #data_len x seq x 1280
 
-    test = torch.load(PATH + 'test_aa.pt') #data_len x seq x 1280
+    train_l = torch.load(PATH + 'train_labels.pt') 
     test_l = torch.load(PATH + 'test_labels.pt')
 
     # TEMPORARY FIX TODO: resave without the zeros!!!
-    test = test[:test_l.shape[0], :, :]
+    test = test[:test_l.shape[0]]
 
-    print(test.shape)
-    print(test_l.shape) 
 
     print('data loaded')
 
@@ -92,18 +108,35 @@ def main(args):
     val_esm_iterator = DataLoader(val_esm_data, batch_size=batch_size, shuffle=True)
     test_esm_iterator = DataLoader(test_esm_data, batch_size=batch_size, shuffle=True)
 
-    esm_linear = ESMAttention1d(max_length=train.shape[1], d_embedding=1280) 
     criterion = nn.MSELoss() 
-    optimizer = optim.Adam(esm_linear.parameters(), lr=0.001)
 
-    train_esm_linear(train_esm_iterator, val_esm_iterator, device, esm_linear, criterion, optimizer, 100)
-        
-    print('starting evaluation')
+    if args.mean: # mean embeddings
+        esm_linear = ESMAttention1dMean(d_embedding=1280)
+        optimizer = optim.Adam(esm_linear.parameters(), lr=0.001)
+        train_esm_linear_mean(train_esm_iterator, val_esm_iterator, device, esm_linear, criterion, optimizer, 100)
+        print('starting evaluation for', args.esm_type, dataset, split, 'mean pool embedding')
 
-    EVAL_PATH = 'evals/'+dataset+'/esm/'+split+'/esm1b/'
+    else: # per AA embeddings 
+        esm_linear = ESMAttention1d(max_length=train.shape[1], d_embedding=1280) 
+        optimizer = optim.Adam(esm_linear.parameters(), lr=0.001) 
+        train_esm_linear(train_esm_iterator, val_esm_iterator, device, esm_linear, criterion, optimizer, 100)
+        print('starting evaluation for', args.esm_type, dataset, split, 'per AA embedding')
+    
 
-    evaluate_esm(train_esm_iterator, device, esm_linear, len(train_esm_data), EVAL_PATH)
-    evaluate_esm(test_esm_iterator, device, esm_linear, len(test_esm_data), EVAL_PATH)
+    EVAL_PATH = 'evals/' + dataset + '/' + args.esm_type + '/' + split
+
+    print('evaluating train:')
+    if args.mean:
+        evaluate_esm_mean(train_esm_iterator, device, esm_linear, len(train_esm_data), EVAL_PATH+'_train_mean')
+    else:
+        evaluate_esm(train_esm_iterator, device, esm_linear, len(train_esm_data), EVAL_PATH+'_train')
+
+    print('evaluating test:')
+    if args.mean:
+        evaluate_esm_mean(test_esm_iterator, device, esm_linear, len(test_esm_data), EVAL_PATH+'_test_mean')
+    else:
+        evaluate_esm(test_esm_iterator, device, esm_linear, len(test_esm_data), EVAL_PATH+'_test')
+
 
 if __name__ == '__main__':
     parser = create_parser()
