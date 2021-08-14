@@ -1,6 +1,6 @@
 ### Dataset description
 
-The dataset was downloaded (upon reboot of the hosting server) from http://meltomeatlas.proteomics.wzw.tum.de:5003 .
+The dataset was downloaded (upon reboot of the hosting server, thanks to some of the manuscript authors) from http://meltomeatlas.proteomics.wzw.tum.de:5003 .
 
 It contains "melting behaviour" and a "melting degree" for proteins in human and other species (in two files).
 
@@ -59,3 +59,33 @@ All tasks are contained in the `tasks.zip` file. These are CSV with colums:
 - `sequence`: the AA sequence. May contain special characters!
 - `target`: the prediction target. This may be continuous (`regression`), or True/False (`binary`)
 - `set`: either `train` or `test`, if the sequence should be used for training or testing your model!
+
+
+### Cite
+From the publisher:
+> Jarzab, A., Kurzawa, N., Hopf, T. et al. Meltome atlas—thermal proteome stability across the tree of life. Nat Methods 17, 495–503 (2020). https://doi.org/10.1038/s41592-020-0801-4
+
+
+Bibtex:
+```
+@article{jarzab2020meltome,
+  title={Meltome atlas—thermal proteome stability across the tree of life},
+  author={Jarzab, Anna and Kurzawa, Nils and Hopf, Thomas and Moerch, Matthias and Zecha, Jana and Leijten, Niels and Bian, Yangyang and Musiol, Eva and Maschberger, Melanie and Stoehr, Gabriele and others},
+  journal={Nature methods},
+  volume={17},
+  number={5},
+  pages={495--503},
+  year={2020},
+  publisher={Nature Publishing Group}
+}
+```
+
+### Data licensing
+
+Upon request, the authors of the manuscript wish to make it known that the original dataset obtainable from http://meltomeatlas.proteomics.wzw.tum.de:5003 is:
+
+> Free for anyone to use.  
+> No need for licenses.  
+> Referencing/acknowledging the originators of the data would be good enough for me.  
+
+The modified data available in this repository and in the `tasks` falls under [AFL-3](https://opensource.org/licenses/AFL-3.0).

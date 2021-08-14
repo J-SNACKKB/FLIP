@@ -24,3 +24,27 @@ All tasks are contained in the `tasks.zip` file. These are CSV with colums:
 - `sequence`: the AA sequence. May contain special characters!
 - `target`: the prediction target. This may be continuous (`regression`), or True/False (`binary`)
 - `set`: either `train` or `test`, if the sequence should be used for training or testing your model!
+
+### Cite
+From the publisher:
+> Spencer, J.M., Zhang, X. Deep mutational scanning of S. pyogenes Cas9 reveals important functional domains. Sci Rep 7, 16836 (2017). https://doi.org/10.1038/s41598-017-17081-y
+
+
+Bibtex:
+```
+@article{spencer2017deep,
+  title={Deep mutational scanning of S. pyogenes Cas9 reveals important functional domains},
+  author={Spencer, Jeffrey M and Zhang, Xiaoliu},
+  journal={Scientific reports},
+  volume={7},
+  number={1},
+  pages={1--14},
+  year={2017},
+  publisher={Nature Publishing Group}
+}
+```
+
+### Data licensing
+
+The RWA data downloaded from Springer Nature is subject to [Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+Modified data available in this repository and in the `tasks` falls under [AFL-3](https://opensource.org/licenses/AFL-3.0).
