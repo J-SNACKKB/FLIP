@@ -81,7 +81,7 @@ def main(args):
     train_linear(train_iterator, val_iterator, device, linear, optimizer,  r_b = 'r', epoch_num = 100)
     
     # eval
-    EVAL_PATH = 'evals/'+dataset+'/'+split+'/linear/'
+    EVAL_PATH = 'evals/'+dataset+'/linear/' + split
     
     evaluate_linear(train_iterator, linear, device, 'r', EVAL_PATH+'_train') # creates tuples
     evaluate_linear(test_iterator, linear, device, 'r', EVAL_PATH+'_test') # 

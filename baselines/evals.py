@@ -51,7 +51,7 @@ def regression_eval(predicted, labels, print_stats, SAVE_PATH):
         plt.show()
     
     else:
-        print('train stats: Spearman: %.2f MSE: %.2f ' % (rho, mse))
+        print('stats: Spearman: %.2f MSE: %.2f ' % (rho, mse))
         plt.figure()
         plt.title('predicted (y) vs. labels (x)')
         sns.scatterplot(x = labels, y = predicted, s = 2, alpha = 0.2)
@@ -159,6 +159,40 @@ def evaluate_esm(data_iterator, device, model, size, SAVE_PATH):
             m = (inp[:, :, 0] != 0).long().to(device)
 
             o = model(inp, m).squeeze().cpu()  # Forward prop without storing gradients
+
+            b = inp.shape[0] 
+            out[s: s + b:] = o
+            labels[s: s + b:] = l
+
+            s += b
+    
+    print('size of predicted:', out.shape)
+
+    with open(SAVE_PATH+'.pickle', 'wb') as f:
+        pickle.dump((out, labels), f)
+
+    regression_eval(predicted=out, labels=labels, print_stats=False, SAVE_PATH=SAVE_PATH)
+
+    
+
+def evaluate_esm_mean(data_iterator, device, model, size, SAVE_PATH):
+    """ run data through model and print eval stats """
+    
+    # create a tensor to hold results
+    out = np.empty([size])
+    labels = np.empty([size])
+
+    s = 0 
+    
+    model.eval()
+    model.to(device)
+
+    with torch.no_grad(): # evaluate validation loss here 
+        for i, (inp, l) in enumerate(data_iterator):
+            
+            inp = inp.to(device)
+
+            o = model(inp).squeeze().cpu()  # Forward prop without storing gradients
 
             b = inp.shape[0] 
             out[s: s + b:] = o
