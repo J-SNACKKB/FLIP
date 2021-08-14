@@ -1,4 +1,4 @@
-# ACTIVE SETS
+# 🟢 ACTIVE SETS
 
 The following sets are active and can be used for evaluation of your sequence models.
 
@@ -6,7 +6,7 @@ The following sets are active and can be used for evaluation of your sequence mo
 - gb1
 - meltome
 
-# DEPRECATED SETS
+# 🔴 DEPRECATED SETS
 
 After evaluations on biological meaning, some sets were deprecated. These sets are listed below:
 

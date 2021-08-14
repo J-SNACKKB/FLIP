@@ -15,4 +15,6 @@ As the folder size is substantial, and additional data to the RAW sets was used 
 ## Find out more about the tasks
 
 The goal of the tasks in this repository is to assess how well machine learning devices using protein sequence inputs can represent different dimensions relevant for protein design.
-The main place to find out about the tasks is the `tasks` folder. Each set contains a zip file with one ore more "tasks", where different tasks may be different train/test splits based on biological or statistical intuition.
+The main place to find out about the tasks is the `tasks` folder. Each set contains a zip file with one or more "tasks", where different tasks may be different train/test splits based on biological or statistical intuition.
+
+Note that we include both 🟢 ACTIVE and 🔴 DEPRECATED sets. Evaluations should be performed only on the 🟢 ACTIVE sets.
