@@ -25,17 +25,17 @@ class Linear_Base(nn.Module):
         self.embed_dim = len(vocab) + 1
         self.lut = torch.tensor(np.eye(len(vocab) + 1), dtype=float) # look up table for one-hot encoding
         self.embedding = nn.Embedding.from_pretrained(self.lut, padding_idx=pad_index, freeze=True)
-        self.linear = nn.Linear(self.max_length * self.embed_dim, self.max_length * self.embed_dim)
-        self.relu = nn.ReLU()
+        #self.linear = nn.Linear(self.max_length * self.embed_dim, self.max_length * self.embed_dim)
+        #self.relu = nn.ReLU()
         self.out = nn.Linear(self.max_length * self.embed_dim, 1)
 
     
     def forward(self, x):
         x = self.embedding(x.long())
         x = torch.reshape(x, (-1, self.max_length * self.embed_dim))
-        x = self.linear(x.float())
-        x = self.relu(x)
-        x = self.out(x)
+        #x = self.linear(x.float())
+        #x = self.relu(x)
+        x = self.out(x.float())
         return x
 
 class LeastSquares(nn.Module):

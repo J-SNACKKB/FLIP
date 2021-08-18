@@ -1,3 +1,5 @@
+🟢 ACTIVE
+
 ### Dataset description
 
 The original sequence from the aav study is UniProt [P03135](https://www.uniprot.org/uniprot/P03135). A copy of the wildtype sequence can be found in this folder as P03135.fasta
@@ -45,3 +47,31 @@ All tasks are contained in the `tasks.zip` file. These are CSV with colums:
 - `sequence`: the AA sequence. May contain special characters!
 - `target`: the prediction target. This may be continuous (`regression`), or True/False (`binary`)
 - `set`: either `train` or `test`, if the sequence should be used for training or testing your model!
+
+Natural tasks 1 and 2 additionally include the following column:
+- `random_sample`: A string to categorize training samples for few-shot learning. The string is in the format `Sx`,
+  where `x` is a positive integer > 0, or `unassigned`. Sequences belonging to a particular `Sx` are considered a random sample for the few-shot learning approach.
+  In the case of AAV, the number of samples belonging to a random sample are 96, and there are 100 non-overlapping random samples.
+
+### Cite
+From the publisher:
+> Bryant, D.H., Bashir, A., Sinai, S. et al. Deep diversification of an AAV capsid protein by machine learning. Nat Biotechnol 39, 691–696 (2021). https://doi.org/10.1038/s41587-020-00793-4
+
+Bibtex:
+```
+@article{bryant2021deep,
+  title={Deep diversification of an AAV capsid protein by machine learning},
+  author={Bryant, Drew H and Bashir, Ali and Sinai, Sam and Jain, Nina K and Ogden, Pierce J and Riley, Patrick F and Church, George M and Colwell, Lucy J and Kelsic, Eric D},
+  journal={Nature Biotechnology},
+  volume={39},
+  number={6},
+  pages={691--696},
+  year={2021},
+  publisher={Nature Publishing Group}
+}
+```
+
+### Data licensing
+
+The RWA data was downloaded from [GitHub](https://github.com/churchlab/Deep_diversification_AAV/tree/main/Data) which doesn't feature a license.
+Modified data available in this repository and in the `tasks` falls under [AFL-3](https://opensource.org/licenses/AFL-3.0).
