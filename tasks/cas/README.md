@@ -24,7 +24,7 @@ Train/Test splits are done on the [PI domain](https://pfam.xfam.org/family/PF165
 All tasks are contained in the `tasks.zip` file. These are CSV with colums:
 
 - `sequence`: the AA sequence. May contain special characters!
-- `target`: the prediction target. This may be continuous (`regression`), or True/False (`binary`)
+- `target`: the prediction target, which is float value (the task is a regression).
 - `set`: either `train` or `test`, if the sequence should be used for training or testing your model!
 
 ### Cite

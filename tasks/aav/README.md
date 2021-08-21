@@ -45,7 +45,7 @@ The full dataset can be found in the zipped CSV `full_data.csv.zip`. All "tasks"
 All tasks are contained in the `tasks.zip` file. These are CSV with colums:
 
 - `sequence`: the AA sequence. May contain special characters!
-- `target`: the prediction target. This may be continuous (`regression`), or True/False (`binary`)
+- `target`: the prediction target, which is float value (the task is a regression).
 - `set`: either `train` or `test`, if the sequence should be used for training or testing your model!
 
 Natural tasks 1 and 2 additionally include the following column:
