@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns 
 import re 
 
-sys.path.append('/home/v-jodymou/bio-benchmarks/baselines/')
+sys.path.append('/home/v-jodymou/FLIP-benchmarks/baselines/')
 
 from utils import *
 from evals import *

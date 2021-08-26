@@ -29,35 +29,24 @@ def concat_tensor(tensor_list, keep_tensor = False):
         return np.array(output_tensor)
 
 
-def regression_eval(predicted, labels, print_stats, SAVE_PATH):
-    """ outputs spearman, MSE, and graph of predicted vs actual """
-    
-    if type(predicted) == list: 
-        predicted = concat_tensor(predicted)
-        labels = concat_tensor(labels)
-    else: 
-        predicted = np.array(predicted)
-        labels = np.array(labels)
+def regression_eval(predicted, labels, SAVE_PATH):
+    """ 
+    input: 1D tensor or array of predicted values and labels
+    output: saves spearman, MSE, and graph of predicted vs actual 
+    """
+
+    predicted = np.array(predicted)
+    labels = np.array(labels)
 
     rho, _ = stats.spearmanr(predicted, labels) # spearman
     mse = mean_squared_error(predicted, labels) # MSE
-    
-    if print_stats:
-        print('stats: Spearman: %.2f MSE: %.2f ' % (rho, mse))
 
-        plt.figure()
-        plt.title('predicted (y) vs. labels (x)')
-        sns.scatterplot(x = labels, y = predicted, s = 2, alpha = 0.2)
-        plt.show()
-    
-    else:
-        print('stats: Spearman: %.2f MSE: %.2f ' % (rho, mse))
-        plt.figure()
-        plt.title('predicted (y) vs. labels (x)')
-        sns.scatterplot(x = labels, y = predicted, s = 2, alpha = 0.2)
-        plt.savefig(SAVE_PATH+'.png', dpi = 300)
-        
- ##### TODO: SAVE_PATH
+    plt.figure()
+    plt.title('predicted (y) vs. labels (x)')
+    sns.scatterplot(x = labels, y = predicted, s = 2, alpha = 0.2)
+    plt.savefig(SAVE_PATH / 'preds_vs_labels.png', dpi = 300)
+
+    return round(rho, 2), round(mse, 2)
         
     
 def binary_eval(predicted, labels, scores, print_stats):
@@ -140,42 +129,7 @@ def evaluate_linear(data_iterator, model, device, r_b, SAVE_PATH):
     with open(SAVE_PATH+'.pickle', 'wb') as f:
         pickle.dump((predicted, labels_ls), f)
 
-def evaluate_esm(data_iterator, device, model, size, SAVE_PATH):
-    """ run data through model and print eval stats """
-    
-    # create a tensor to hold results
-    out = np.empty([size])
-    labels = np.empty([size])
-
-    s = 0 
-    
-    model.eval()
-    model.to(device)
-
-    with torch.no_grad(): # evaluate validation loss here 
-        for i, (inp, l) in enumerate(data_iterator):
-            
-            inp = inp.to(device)
-            m = (inp[:, :, 0] != 0).long().to(device)
-
-            o = model(inp, m).squeeze().cpu()  # Forward prop without storing gradients
-
-            b = inp.shape[0] 
-            out[s: s + b:] = o
-            labels[s: s + b:] = l
-
-            s += b
-    
-    print('size of predicted:', out.shape)
-
-    with open(SAVE_PATH+'.pickle', 'wb') as f:
-        pickle.dump((out, labels), f)
-
-    regression_eval(predicted=out, labels=labels, print_stats=False, SAVE_PATH=SAVE_PATH)
-
-    
-
-def evaluate_esm_mean(data_iterator, device, model, size, SAVE_PATH):
+def evaluate_esm(data_iterator, model, device, size, mean, mut_mean, SAVE_PATH):
     """ run data through model and print eval stats """
     
     # create a tensor to hold results
@@ -192,17 +146,27 @@ def evaluate_esm_mean(data_iterator, device, model, size, SAVE_PATH):
             
             inp = inp.to(device)
 
-            o = model(inp).squeeze().cpu()  # Forward prop without storing gradients
+            if mean or mut_mean: 
+                o = model(inp).squeeze().cpu()
+            else:
+                m = (inp[:, :, 0] != 0).long().to(device)
+                o = model(inp, m).squeeze().cpu()  # Forward prop without storing gradients
 
             b = inp.shape[0] 
             out[s: s + b:] = o
             labels[s: s + b:] = l
 
             s += b
-    
-    print('size of predicted:', out.shape)
 
-    regression_eval(predicted=out, labels=labels, print_stats=False, SAVE_PATH=SAVE_PATH)
-
-    with open(SAVE_PATH+'.pickle', 'wb') as f:
+    if mean:
+        SAVE_PATH = SAVE_PATH / 'mean'
+    if mut_mean:
+        SAVE_PATH = SAVE_PATH / 'mut_mean'
+        
+    SAVE_PATH.mkdir(parents=True, exist_ok=True) # make directory if it doesn't exist already
+    with open(SAVE_PATH / 'preds_labels_raw.pickle', 'wb') as f:
         pickle.dump((out, labels), f)
+    
+    rho, mse = regression_eval(predicted=out, labels=labels, SAVE_PATH=SAVE_PATH)
+
+    return rho, mse

@@ -1,14 +1,15 @@
 import pandas as pd
-
 import numpy as np
-import math
+import random
 import re
+from pathlib import Path
+import sys
 
 import torch
-import torch.nn as nn
-from torch import optim
-import torch.nn.functional as F
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset, TensorDataset
+
+torch.manual_seed(10)
+random.seed(10)
 
 
 vocab = ['A','C','D','E','F','G','H','I','K','L','M','N','P','Q','R','S','T','V','W','Y']
@@ -45,7 +46,7 @@ def get_data(df, max_length, encode_pad=True, zip_dataset=True, reverse_seq_targ
 def load_dataset(dataset, split, mut_only, val_split = True):
     """returns dataframe of train, (val), test sets, with max_length param"""
     
-    datadir = '/home/v-jodymou/bio-benchmarks/tasks/'+dataset+'/tasks/'
+    datadir = '/home/v-jodymou/FLIP/tasks/'+dataset+'/tasks/'
 
     if mut_only:
         path = datadir+'mutated_region_only/'+split
@@ -71,7 +72,54 @@ def load_dataset(dataset, split, mut_only, val_split = True):
     else:
         print('loaded train/test:', len(train), len(test))
         return train, test, max_length
+
+
+def load_esm_dataset(dataset, model, split, mean, mut_mean, samples, index):
+
+    # TODO: add pathlib into the utils
     
+    embedding_dir = Path('/data/v-jodymou/embeddings/')
+    PATH = embedding_dir / dataset / model / split
+    
+    if mean:
+        train = torch.load(PATH / 'train_mean.pt') #data_len x seq x 1280
+        test = torch.load(PATH / 'test_mean.pt') #data_len x seq x 1280
+    else:
+        train = torch.load(PATH / 'train_aa.pt') #data_len x seq x 1280
+        test = torch.load(PATH / 'test_aa.pt') #data_len x seq x 1280
+    
+    if dataset == 'aav' and mut_mean == True:
+        train = torch.mean(train[:, 560:590, :], 1)
+        test = torch.mean(test[:, 560:590, :], 1)
+
+    train_l = torch.load(PATH / 'train_labels.pt')
+    test_l = torch.load(PATH / 'test_labels.pt')
+
+    # TEMPORARY FIX TODO: resave without the zeros!!!
+    test = test[:test_l.shape[0]]
+
+
+
+    if index is not None:
+
+        train = train[samples[index]]
+        train_l = train_l[samples[index]]
+        
+    idx = random.sample(range(0, train.shape[0]), train.shape[0]//10) # TODO: set the random seed here
+    idx_r = [i for i in np.arange(train.shape[0]) if i not in idx]
+
+    train_esm_data = TensorDataset(train[idx_r], train_l[idx_r])
+    val_esm_data = TensorDataset(train[idx], train_l[idx])
+    test_esm_data = TensorDataset(test, test_l)
+
+    max_length = test.shape[1]
+
+    print('loaded train/val/test:', len(train_esm_data), len(val_esm_data), len(test_esm_data), file = sys.stderr) 
+    
+    return train_esm_data, val_esm_data, test_esm_data, max_length
+
+
+
 class SequenceDataset(Dataset):
     def __init__(self, data):
         self.data = data
