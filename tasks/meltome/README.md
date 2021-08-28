@@ -49,11 +49,9 @@ The cluster file `meltome_PIDE20_clusters.tsv` was used to create train/test spl
 
 ### Tasks
 
-The train/test splits were computed by splitting the clusters. 80% of the clusters were used for training, while 20% were used for training. Additionally, either cluster representatives or cluster components were used for either set like so: 
+The train/test splits were computed by splitting the clusters. 80% of the clusters were used for training, while 20% were used for training. Cluster representatives were used for training while cluster components were used for testing: 
 
-- `clustered_task`: uses only the cluster representative from the mmseqs2 run for training and testing (aka: lower number of samples).
-- `full_task`: uses cluster components and representatives for training and testing
-- `mixed_task`: uses cluster components for training and cluster representatives for testing (goal: avoid overestimaiting performance on big clusters)
+- `mixed_task`: uses cluster components for training and cluster representatives for testing (goal: avoid overestimaiting performance on big clusters in the test set)
 
 
 All tasks are contained in the `tasks.zip` file. These are CSV with colums:
