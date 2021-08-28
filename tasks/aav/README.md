@@ -48,11 +48,6 @@ All tasks are contained in the `tasks.zip` file. These are CSV with colums:
 - `target`: the prediction target, which is float value (the task is a regression).
 - `set`: either `train` or `test`, if the sequence should be used for training or testing your model!
 
-Natural tasks 1 and 2 additionally include the following column:
-- `random_sample`: A string to categorize training samples for few-shot learning. The string is in the format `Sx`,
-  where `x` is a positive integer > 0, or `unassigned`. Sequences belonging to a particular `Sx` are considered a random sample for the few-shot learning approach.
-  In the case of AAV, the number of samples belonging to a random sample are 96, and there are 100 non-overlapping random samples.
-
 ### Cite
 From the publisher:
 > Bryant, D.H., Bashir, A., Sinai, S. et al. Deep diversification of an AAV capsid protein by machine learning. Nat Biotechnol 39, 691–696 (2021). https://doi.org/10.1038/s41587-020-00793-4
