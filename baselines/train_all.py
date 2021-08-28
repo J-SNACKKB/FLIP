@@ -10,7 +10,7 @@ from torch.utils.data import TensorDataset, DataLoader
 import re 
 from csv import writer
 
-sys.path.append('/home/v-jodymou/FLIP/baselines/')
+sys.path.append('../FLIP/baselines/')
 
 from utils import *
 from evals import *
@@ -73,13 +73,19 @@ def create_parser():
         action="store_true"
     )
 
+    parser.add_argument(
+        "--flip", 
+        action="store_true"
+    )
+
     return parser
 
-def train_eval(dataset, model, split, device, mean, mut_mean, samples, index, batch_size): 
+def train_eval(dataset, model, split, device, mean, mut_mean, samples, index, batch_size, flip): 
     # could get utils to output iterators directly, input batch size?
     if model.startswith('esm'): # if training an esm model:
-        train_data, val_data, test_data, max_length = load_esm_dataset(dataset, model, split, mean, mut_mean, samples, index)
+        train_data, val_data, test_data, max_length = load_esm_dataset(dataset, model, split, mean, mut_mean, samples, index, flip)
         # 560, 590
+    
     else:
         pass # load data normally
 
@@ -123,6 +129,8 @@ def train_eval(dataset, model, split, device, mean, mut_mean, samples, index, ba
             model+='_mean'
         if args.mut_mean:
             model+='_mut_mean'
+        if args.flip:
+            split+='_flipped'
         writer(f).writerow([dataset, model, split, index, train_rho, train_mse, test_rho, test_mse, epochs_trained])
 
 
@@ -135,23 +143,23 @@ def main(args):
     split = split_dict[args.split]
     dataset = re.findall(r'(\w*)\_', args.split)[0]
 
-    print('dataset: {0} model: {1} split: {2} \n'.format(dataset, args.model, split)) #TODO: print this to stdout and stderr
+    print('dataset: {0} model: {1} split: {2} \n'.format(dataset, args.model, split))
 
 
     if args.random_sample:   
         # make a dictionary mapping the split to the indices
         train, _, _ = load_dataset(dataset, split+'.csv', mut_only=False, val_split=False) 
-        
         samples = {}
         for i in range(100):
             train = train.reset_index(drop=True)
             samples[i] = train.index[train['random_sample'] =='S'+str(i+1)].to_numpy()
+        
         # then, run training and evaluation on every random sample
         for i in range(100):
-            train_eval(dataset, args.model, split, device, args.mean, args.mut_mean, samples=samples, index=i, batch_size=96)
+            train_eval(dataset, args.model, split, device, args.mean, args.mut_mean, samples=samples, index=i, batch_size=96, flip=args.flip)
 
     else:
-        train_eval(dataset, args.model, split, device, args.mean, args.mut_mean, samples=None, index=None, batch_size=256)
+        train_eval(dataset, args.model, split, device, args.mean, args.mut_mean, samples=None, index=None, batch_size=256, flip=args.flip)
     
     
 if __name__ == '__main__':

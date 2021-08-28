@@ -74,38 +74,39 @@ def load_dataset(dataset, split, mut_only, val_split = True):
         return train, test, max_length
 
 
-def load_esm_dataset(dataset, model, split, mean, mut_mean, samples, index):
+def load_esm_dataset(dataset, model, split, mean, mut_mean, samples, index, flip):
 
-    # TODO: add pathlib into the utils
-    
-    embedding_dir = Path('/data/v-jodymou/embeddings/')
+    embedding_dir = Path('../FLIP/embeddings/')
     PATH = embedding_dir / dataset / model / split
     
     if mean:
-        train = torch.load(PATH / 'train_mean.pt') #data_len x seq x 1280
-        test = torch.load(PATH / 'test_mean.pt') #data_len x seq x 1280
+        train = torch.load(PATH / 'train_mean.pt') 
+        test = torch.load(PATH / 'test_mean.pt')
     else:
-        train = torch.load(PATH / 'train_aa.pt') #data_len x seq x 1280
-        test = torch.load(PATH / 'test_aa.pt') #data_len x seq x 1280
+        train = torch.load(PATH / 'train_aa.pt') 
+        test = torch.load(PATH / 'test_aa.pt') 
     
     if dataset == 'aav' and mut_mean == True:
         train = torch.mean(train[:, 560:590, :], 1)
         test = torch.mean(test[:, 560:590, :], 1)
 
+    if dataset == 'gb1' and mut_mean == True: #positions 39, 40, 41, 54 in sequence
+        train = torch.mean(train[:, [38, 39, 40, 53], :], 1)
+        test = torch.mean(test[:, [38, 39, 40, 53], :], 1)
+        
     train_l = torch.load(PATH / 'train_labels.pt')
     test_l = torch.load(PATH / 'test_labels.pt')
 
-    # TEMPORARY FIX TODO: resave without the zeros!!!
-    test = test[:test_l.shape[0]]
-
-
+    if flip:
+        train_l, test_l = test_l, train_l 
+        train, test = test, train
 
     if index is not None:
 
         train = train[samples[index]]
         train_l = train_l[samples[index]]
         
-    idx = random.sample(range(0, train.shape[0]), train.shape[0]//10) # TODO: set the random seed here
+    idx = random.sample(range(0, train.shape[0]), train.shape[0]//10) 
     idx_r = [i for i in np.arange(train.shape[0]) if i not in idx]
 
     train_esm_data = TensorDataset(train[idx_r], train_l[idx_r])
@@ -117,47 +118,3 @@ def load_esm_dataset(dataset, model, split, mean, mut_mean, samples, index):
     print('loaded train/val/test:', len(train_esm_data), len(val_esm_data), len(test_esm_data), file = sys.stderr) 
     
     return train_esm_data, val_esm_data, test_esm_data, max_length
-
-
-
-class SequenceDataset(Dataset):
-    def __init__(self, data):
-        self.data = data
-    
-    def __len__(self):
-        return len(self.data)
-    
-    def __getitem__(self, index):
-        return self.data[index][0], self.data[index][1] # return sequence and label as tuple
-    
-class ESMSequenceDataset(Dataset):
-    "special dataset class just to deal with ESM tensors"
-    def __init__(self, emb, mask, labels):
-        self.emb = emb
-        self.mask = mask
-        self.labels = labels
-    
-    def __len__(self):
-        return len(self.labels)
-    
-    def __getitem__(self, index):
-        return self.emb[index], self.mask[index], self.labels[index]
-
-class HugeDataset(Dataset):
-    "load in the data directly from saved .pt files output from batch ESM. Include test/train in path"
-    def __init__(self, embeddings_path, label_path, mean=False):
-        self.path = embeddings_path
-        self.label = torch.load(label_path)
-        self.mean = mean
-    
-    def __len__(self):
-        return self.label.shape[0]
-    
-    def __getitem__(self, index):
-        if self.mean:
-            e = torch.load(self.path + str(index) + '.pt')['mean_representations'][33]
-        else:   
-            e = torch.load(self.path + str(index) + '.pt')['representations'][33]
-        
-        return e, self.label[index]
-
