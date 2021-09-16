@@ -21,6 +21,7 @@ Train/Test splits are done as follows:
 - `four_mutations_task_2.csv`: `train` is wild type, all single & double mutations, `test` is everything else.
 - `four_mutations_task_3.csv`: `train` is wild type, all single, double & triple mutations, `test` is everything else.
 - `four_mutations_task_4.csv`: Randomly split sequences into `train`/`test` with 80/20% probability.
+- `four_mutations_task_5.csv`: `train` are sequences with fitness below WT, `test` is everything else.
 
 
 All tasks are contained in the `tasks.zip` file. These are CSV with colums:
