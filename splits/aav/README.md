@@ -33,6 +33,7 @@ On the other hand, "mut" are sequences in all other partitions (designed through
 - `one_vs_many`: `train` if in "des" with `levenshtein_distance <= 1` , `test` if in "des" with `levenshtein_distance > 1`
 - `two_vs_many`: `train` if in "des" with `levenshtein_distance <= 2` , `test` if in "des" with `levenshtein_distance > 2`
 - `seven_vs_many`: `train` if in "des" with `levenshtein_distance <= 7` , `test` if in "des" with `levenshtein_distance > 7`
+- `low_vs_high.csv`: `train` if in "des" with `score` below or equal WT, `test` if in "des" with `score` above WT.
 - `sampled`: `train` for 80% of data in "des", `test` for the remaining 20% in "des"
 
 All splits are contained in the `splits.zip` file. These are CSV with colums:
