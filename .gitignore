@@ -149,7 +149,7 @@ webserver/konsti
 examples/*/simpledocs/_build
 docs/docs-branch
 data/*
-tasks/*/tasks/*
-tasks/aav/full_data.csv
-tasks/meltome/full_dataset.json
-tasks/meltome/full_dataset_sequences.fasta
+splits/*/tasks/*
+splits/aav/full_data.csv
+splits/meltome/full_dataset.json
+splits/meltome/full_dataset_sequences.fasta
