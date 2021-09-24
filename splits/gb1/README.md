@@ -9,25 +9,25 @@ The full WT GB1 sequence was never included in the dataset, so it was inferred f
 
 The `four_mutations_full_data.csv` is an extension of the [supplement to the 2016 manuscript](https://doi.org/10.7554/eLife.16965.024). It contains the following extra columns w.r.t. the supplement:
 - `sequence`: the "full" sequence of [5LDE](https://www.rcsb.org/structure/5LDE) with substitutions at sites V39, D40, G41 and V54.
-- `task_1_set` to `task_3_set`: the train/test splits for different tasks detailed below.
+- the train/test splits for different splits detailed below.
 
 
-### Tasks
+### Splits
 
-All tasks are regression tasks on the `Fittness` value reported by the [2016 publication](https://elifesciences.org/articles/16965) in the [supplement](https://doi.org/10.7554/eLife.16965.024).
+All splits are regression splits on the `Fittness` value reported by the [2016 publication](https://elifesciences.org/articles/16965) in the [supplement](https://doi.org/10.7554/eLife.16965.024).
 Train/Test splits are done as follows:
 
-- `four_mutations_task_1.csv`: `train` is wild type and all single mutations, `test` is everything else.
-- `four_mutations_task_2.csv`: `train` is wild type, all single & double mutations, `test` is everything else.
-- `four_mutations_task_3.csv`: `train` is wild type, all single, double & triple mutations, `test` is everything else.
-- `four_mutations_task_4.csv`: Randomly split sequences into `train`/`test` with 80/20% probability.
-- `four_mutations_task_5.csv`: `train` are sequences with fitness below WT, `test` is everything else.
+- `one_vs_rest.csv`: `train` is wild type and all single mutations, `test` is everything else.
+- `two_vs_rest.csv`: `train` is wild type, all single & double mutations, `test` is everything else.
+- `three_vs_rest.csv`: `train` is wild type, all single, double & triple mutations, `test` is everything else.
+- `sampled.csv`: Randomly split sequences into `train`/`test` with 80/20% probability.
+- `low_vs_high.csv`: `train` are sequences with fitness below WT, `test` is everything else.
 
 
-All tasks are contained in the `tasks.zip` file. These are CSV with colums:
+All splits are contained in the `splits.zip` file. These are CSV with colums:
 
 - `sequence`: the AA sequence. May contain special characters!
-- `target`: the prediction target, which is float value (the task is a regression).
+- `target`: the prediction target, which is float value (the split is a regression).
 - `set`: either `train` or `test`, if the sequence should be used for training or testing your model!
 
 
@@ -58,4 +58,4 @@ publisher = {eLife Sciences Publications, Ltd},
 ### Data licensing
 
 The RWA data downloaded from elife is subject to [Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
-Modified data available in this repository and in the `tasks` falls under [AFL-3](https://opensource.org/licenses/AFL-3.0).
+Modified data available in this repository and in the `splits` falls under [AFL-3](https://opensource.org/licenses/AFL-3.0).

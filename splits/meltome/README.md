@@ -47,18 +47,18 @@ mmseqs easy-cluster --min-seq-id 0.2 meltome.fasta meltome_PIDE20.fasta tmp
 
 The cluster file `meltome_PIDE20_clusters.tsv` was used to create train/test splits.
 
-### Tasks
+### Splits
 
 The train/test splits were computed by splitting the clusters. 80% of the clusters were used for training, while 20% were used for training. Cluster representatives were used for training while cluster components were used for testing: 
 
-- `mixed_task`: uses cluster components for training and cluster representatives for testing (goal: avoid overestimaiting performance on big clusters in the test set)
+- `mixed_split`: uses cluster components for training and cluster representatives for testing (goal: avoid overestimaiting performance on big clusters in the test set)
 
-
-All tasks are contained in the `tasks.zip` file. These are CSV with colums:
+All splits are contained in the `splits.zip` file. These are CSV with colums:
 
 - `sequence`: the AA sequence. May contain special characters!
-- `target`: the prediction target, which is float value (the task is a regression).
+- `target`: the prediction target, which is float value (the splits is a regression).
 - `set`: either `train` or `test`, if the sequence should be used for training or testing your model!
+- `validation`: When `True`, these are sequences for train that may be used for validation (e.g. early stopping).
 
 
 ### Cite
@@ -88,4 +88,4 @@ Upon request, the authors of the manuscript wish to make it known that the origi
 > No need for licenses.  
 > Referencing/acknowledging the originators of the data would be good enough for me.  
 
-The modified data available in this repository and in the `tasks` falls under [AFL-3](https://opensource.org/licenses/AFL-3.0).
+The modified data available in this repository and in the `splits` falls under [AFL-3](https://opensource.org/licenses/AFL-3.0).

@@ -153,3 +153,4 @@ splits/*/splits/*
 splits/aav/full_data.csv
 splits/meltome/full_dataset.json
 splits/meltome/full_dataset_sequences.fasta
+splits/gb1/four_mutations_full_data.csv
