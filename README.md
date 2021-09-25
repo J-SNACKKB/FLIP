@@ -9,8 +9,7 @@ This repository is for the paper submitted to the 2021 NeurIPS Benchmark track.
 1. `splits` contains all splits, a brief description of their processing and the logic behind train/test splits
 1. `baselines` contains code used to compute baselines
 
-A `.gitignore`d folder called `data` contains RAW data used to produce all splits.
-As the folder size is substantial, and additional data to the RAW sets was used in some instances, this folder is not shipped with the repository but available on-demand.
+A `.gitignore`d folder called `data` contains RAW data used to produce all splits. As the folder size is substantial, it could not be shipped with GitHub. However, it can be accessed here: http://data.bioembeddings.com/public/FLIP
 
 ## Find out more about the splits
 
