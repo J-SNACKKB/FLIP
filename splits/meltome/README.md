@@ -9,7 +9,7 @@ It contains "melting behaviour" and a "melting degree" for proteins in human and
 ### Full dataset
 
 The full dataset (`full_dataset.json`) contains a list of proteins with the following structure:
-```json
+```
 [
     {
       proteinId: [string from dataset],
@@ -52,9 +52,9 @@ The cluster file `meltome_PIDE20_clusters.tsv` was used to create train/test spl
 The train/test splits were computed by splitting the clusters. 80% of the clusters were used for training, while 20% were used for training.
 
 Splits ([semaphore legend](../../README.md#split-semaphore)):
-- 🟢 `mixed_split`: uses cluster components for training and cluster representatives for testing (goal: avoid overestimaiting performance on big clusters in the test set)
-- 🔴 `full_split`: use all cluster components for training and testing
-- 🔴 `clustered_split`: use only cluster representatives for training and testing
+- 🟢 `mixed`: uses cluster components for training and cluster representatives for testing (goal: avoid overestimaiting performance on big clusters in the test set)
+- 🔴 `full`: use all cluster components for training and testing
+- 🔴 `clustered`: use only cluster representatives for training and testing
 
 All splits are contained in the `splits.zip` file. These are CSV with colums:
 
