@@ -20,5 +20,5 @@ The main place to find out about the splits is the `splits` folder. Each set con
 Splits are associated with a semaphore which indicates for what they may be used:
 
 - 🟢: _active_ splits can be used to evaluate accuracy of your machine learning models
-- 🟠: splits that should not be used to make performance comparisons, as may give overestimations
+- 🟠: splits that should not be used to make performance comparisons, as may give overestimations, or because other active splits have similar discriminative ability
 - 🔴: splits that should not be used / considered obsolete. Please do not use these to report performance.
