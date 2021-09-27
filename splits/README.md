@@ -1,13 +1,23 @@
-# 🟢 ACTIVE SETS
+Current splits ([semaphore legend](../README.md#split-semaphore)):
 
-The following sets are active and can be used for evaluation of your sequence models.
-
-- aav
-- gb1
-- meltome
-
-# 🔴 DEPRECATED SETS
-
-After evaluations on biological meaning, some sets were deprecated. These sets are listed below:
-
-- cas
+- AAV
+  - 🟢 `des_mut`
+  - 🟢 `mut_des`
+  - 🟢 `one_vs_many`
+  - 🟢 `two_vs_many`
+  - 🟢 `seven_vs_many`
+  - 🟢 `low_vs_high`
+  - 🟠 `sampled`
+- GB1
+  - 🟢 `one_vs_rest`
+  - 🟢 `two_vs_rest`
+  - 🟢 `three_vs_rest`
+  - 🟢 `low_vs_high`
+  - 🟠 `sampled`
+- Meltome
+  - 🟢 `mixed`
+  - 🔴 `full`
+  - 🔴 `clustered`
+- CAS9
+  - 🔴 `positive_selection`
+  - 🔴 `negative_selection`
