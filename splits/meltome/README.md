@@ -55,6 +55,8 @@ Splits ([semaphore legend](../../README.md#split-semaphore)):
 - 🟢 `mixed`: uses cluster components for training and cluster representatives for testing (goal: avoid overestimaiting performance on big clusters in the test set)
 - 🔴 `full`: use all cluster components for training and testing
 - 🔴 `clustered`: use only cluster representatives for training and testing
+- 🟢 `human`: same as mixed, but using only seqeunces from the human set
+- 🟢 `human_cell`: same as mixed, but using only sequences from one cell line in the human set
 
 All splits are contained in the `splits.zip` file. These are CSV with colums:
 
