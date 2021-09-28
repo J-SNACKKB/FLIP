@@ -16,6 +16,8 @@ Current splits ([semaphore legend](../README.md#split-semaphore)):
   - 🟠 `sampled`
 - Meltome
   - 🟢 `mixed`
+  - 🟢 `human`
+  - 🟢 `human_cell`
   - 🔴 `full`
   - 🔴 `clustered`
 - CAS9
