@@ -10,11 +10,10 @@ import numpy as np
 import torch.nn.functional as F
 from torch.utils.data import Dataset
 
-torch.manual_seed(0)
-
-
-AAINDEX_ALPHABET = 'ARNDCQEGHILKMFPSTWYV'
-
+from train_all import split_dict 
+from utils import SequenceDataset, load_dataset
+from csv import writer
+from pathlib import Path
 
 class CSVDataset(Dataset):
 
@@ -53,7 +52,6 @@ class Tokenizer(object):
     def untokenize(self, x) -> str:
         return ''.join([self.t_to_a[t] for t in x])
 
-
 parser = argparse.ArgumentParser()
 parser.add_argument('dataset', type=str, help='file path to data directory')
 parser.add_argument('task', type=str)
@@ -61,17 +59,18 @@ parser.add_argument('--scale', type=bool, default=False)
 parser.add_argument('--solver', type=str, default='lsqr')
 parser.add_argument('--max_iter', type=float, default=1e6)
 parser.add_argument('--tol', type=float, default=1e-4)
+parser.add_argument('--alpha', type=float, default=1.0)
+parser.add_argument('--ensemble', action='store_true')
+
 args = parser.parse_args()
 
-
+AAINDEX_ALPHABET = 'ARNDCQEGHILKMFPSTWYVXU'
 # grab data
-data_fpath = 'tasks/%s/tasks/%s.csv' %(args.dataset, args.task)
-df = pd.read_csv(data_fpath)
-df = df.astype({'target': float})
-df = df.rename({'set': 'split'}, axis='columns')
-idx = df[df['split'] == 'train'].index
-ds_train = CSVDataset(df=df, split='train', outputs=['target'])
-ds_test = CSVDataset(df=df, split='test', outputs=['target'])
+split = split_dict[args.task]
+train, test, _ = load_dataset(args.dataset, split+'.csv', val_split=False)
+
+ds_train = SequenceDataset(train)
+ds_test = SequenceDataset(test)
 
 
 # tokenize train data
@@ -123,13 +122,31 @@ if args.scale:
     X_train_enc = scaler.fit_transform(X_train_enc)
     X_test_enc = scaler.transform(X_test_enc)
 
-print('Parameters...')
-print('Solver: %s, MaxIter: %s, Tol: %s' % (args.solver, args.max_iter, args.tol))
-print('Training...')
-lr = Ridge(solver=args.solver, tol=args.tol, max_iter=args.max_iter,)
-# lr = LinearRegression()
-lr.fit(X_train_enc, y_train)
-preds = lr.predict(X_test_enc)
-mse = mean_squared_error(y_test, preds)
-print('TEST MSE: ', mse)
-print('TEST RHO: ', spearmanr(y_test, preds).correlation)
+def main(args, X_train_enc, y_train, y_test):
+
+
+    print('Parameters...')
+    print('Solver: %s, MaxIter: %s, Tol: %s' % (args.solver, args.max_iter, args.tol))
+    print('Training...')
+    lr = Ridge(solver=args.solver, tol=args.tol, max_iter=args.max_iter,alpha=args.alpha)
+    # lr = LinearRegression()
+    lr.fit(X_train_enc, y_train)
+    preds = lr.predict(X_test_enc)
+    mse = mean_squared_error(y_test, preds)
+    rho = spearmanr(y_test, preds).correlation
+    print('TEST MSE: ', mse)
+    print('TEST RHO: ', rho)
+
+    with open(Path.cwd() / 'evals_new'/ (args.dataset+'_results.csv'), 'a', newline='') as f:
+        writer(f).writerow([args.dataset, 'linear', split, '', '', '', round(rho,2), round(mse,2), '', args.alpha])
+
+
+if args.ensemble:
+    for i in range(10):
+        np.random.seed(i)
+        torch.manual_seed(i)
+        main(args, X_train_enc, y_train, y_test)
+else:
+    np.random.seed(0)
+    torch.manual_seed(1)
+    main(args, X_train_enc, y_train, y_test)
