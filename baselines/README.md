@@ -2,7 +2,7 @@
 
 We benchmark our datasets and splits on 3 types of baselines:
 - Pretrained: ESM-1b, ESM-1v
-- Supervised: Ridge regression, CNN
+- Supervised: Ridge regression, CNN, ESM-untrained
 - Parameter-free: Levenshtein distance, BLOSUM62
 
 Further details about our baselines are below: 
@@ -10,7 +10,7 @@ Further details about our baselines are below:
 |--------------------------|----------------------------------------------------------|----------------------------------------|------------------------------|----------------|
 | Levenshtein              | Levenshtein & Levenshtein distance to wild-type.         | -                                      | -                            | -              |
 | BLOSUM62                 | BLOSUM62-score relative to wild-type.                    | -                                      | -                            | -              |
-| Ridge regression         | Ridge regression model                                   | One-hot (20 x seq)                     | -                            | 1 Dense Layer  |
+| Ridge regression         | Ridge regression model                                   | One-hot (20 x seq)                     | -                            | -              |
 | CNN                      | Simple convolutional network                             | One-hot (20 x seq)                     | 1D Convolution               | 1 Dense Layer  |
 | ESM-1b                   | 750M param transformer pretrained on Uniref 50           | per-AA ESM embeddings (1280 x seq)     | 1D Attention                 | 2 Dense Layers |
 | ESM-1b (mean)            | 750M param transformer pretrained on Uniref 50           | per-sequence ESM embeddings (1280 x 1) | Mean across entire sequence  | 2 Dense Layers |
@@ -31,20 +31,20 @@ Once embedded and saved in `.pt` format, ESM models can be run using the `train_
 
 The following shorthands for splits are  used in running the scripts:
 - `aav_1`: `des_mut`
-- `aav_1`: `des_mut` ,
-- `aav_2`: `mut_des`,
-- `aav_3`: `one_vs_many`,
-- `aav_4`: `two_vs_many`,
-- `aav_5`: `seven_vs_many`,
-- `aav_6`: `low_vs_high`,
+- `aav_1`: `des_mut` 
+- `aav_2`: `mut_des`
+- `aav_3`: `one_vs_many`
+- `aav_4`: `two_vs_many`
+- `aav_5`: `seven_vs_many`
+- `aav_6`: `low_vs_high`
 - `aav_7`: `sampled`,
-- `meltome_1` : `mixed_split`,
-- `meltome_2`: `human`,
-- `meltome_3` : `human_cell`,
-- `gb1_1`: `one_vs_rest`,
-- `gb1_2`: `two_vs_rest`,
-- `gb1_3`: `three_vs_rest`,
-- `gb1_4`: `sampled`,
+- `meltome_1` : `mixed_split
+- `meltome_2`: `human`
+- `meltome_3` : `human_cell`
+- `gb1_1`: `one_vs_rest`
+- `gb1_2`: `two_vs_rest`
+- `gb1_3`: `three_vs_rest`
+- `gb1_4`: `sampled`
 - `gb1_5`: `low_vs_high`
 
 ### Arguments for `train_all.py`:
@@ -89,7 +89,7 @@ Optional:
 
 ## Levenshtein and BLOSUM62
 
-Both of these can be run in the `levenshtein_blosum62_baselines.ipynb` notebook using the [Biopython] (https://biopython.org/) package.
+Both of these can be run in the `levenshtein_blosum62_baselines.ipynb` notebook using the [Biopython](https://biopython.org/) package.
 
 ## Results
 
