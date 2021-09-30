@@ -3,6 +3,9 @@ from datetime import datetime
 import argparse
 from scipy.stats import spearmanr
 import pandas as pd
+from sklearn.metrics import mean_squared_error
+
+
 
 import torch
 import numpy as np
@@ -11,10 +14,12 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader, Dataset
 import torch.optim as optim
 
-torch.manual_seed(0)
+from train_all import split_dict 
+from utils import SequenceDataset, load_dataset
+from csv import writer
+from pathlib import Path
 
-
-AAINDEX_ALPHABET = 'ARNDCQEGHILKMFPSTWYV'
+AAINDEX_ALPHABET = 'ARNDCQEGHILKMFPSTWYVXU'
 
 
 class Tokenizer(object):
@@ -101,7 +106,7 @@ class ASCollater(object):
 
 
 class LengthMaxPool1D(nn.Module):
-    def __init__(self, linear=False, in_dim=1024, out_dim=2048):
+    def __init__(self, in_dim, out_dim, linear=False):
         super().__init__()
         self.linear = linear
         if self.linear:
@@ -115,42 +120,25 @@ class LengthMaxPool1D(nn.Module):
 
 
 class FluorescenceModel(nn.Module):
-    def __init__(self, n_tokens):
+    def __init__(self, n_tokens, kernel_size, input_size, dropout):
         super(FluorescenceModel, self).__init__()
-        self.encoder = MaskedConv1d(n_tokens, 1024, kernel_size=5)
-        self.embedding = LengthMaxPool1D(linear=True, in_dim=1024, out_dim=2048)
-        self.decoder = nn.Linear(2048, 1)
+        self.encoder = MaskedConv1d(n_tokens, input_size, kernel_size=kernel_size)
+        self.embedding = LengthMaxPool1D(linear=True, in_dim=input_size, out_dim=input_size*2)
+        self.decoder = nn.Linear(input_size*2, 1)
         self.n_tokens = n_tokens
+        self.dropout = nn.Dropout(dropout) # TODO: actually add this to model
+        self.input_size = input_size
 
     def forward(self, x, mask):
         # encoder
         x = F.relu(self.encoder(x, input_mask=mask.repeat(self.n_tokens, 1, 1).permute(1, 2, 0)))
-        x = x * mask.repeat(1024, 1, 1).permute(1, 2, 0)
+        x = x * mask.repeat(self.input_size, 1, 1).permute(1, 2, 0)
         # embed
         x = self.embedding(x)
+        x = self.dropout(x)
         # decoder
         output = self.decoder(x)
         return output
-
-
-class CSVDataset(Dataset):
-
-    def __init__(self, fpath=None, df=None, split=None, outputs=[]):
-        if df is None:
-            self.data = pd.read_csv(fpath)
-        else:
-            self.data = df
-        if split is not None:
-            self.data = self.data[self.data['split'] == split]
-        self.outputs = outputs
-        self.data = self.data[['sequence'] + self.outputs]
-
-    def __len__(self):
-        return len(self.data)
-
-    def __getitem__(self, idx):
-        row = self.data.iloc[idx]
-        return [row['sequence'], *row[self.outputs]]
 
 
 def train(args):
@@ -166,7 +154,7 @@ def train(args):
     tokenizer = Tokenizer(alphabet)
     print('USING OHE HOT ENCODING')
     criterion = nn.MSELoss()
-    model = FluorescenceModel(len(alphabet))
+    model = FluorescenceModel(len(alphabet), args.kernel_size, args.input_size, args.dropout) 
     model = model.to(device)
     optimizer = optim.Adam([
         {'params': model.encoder.parameters(), 'lr': 1e-3, 'weight_decay': 0},
@@ -178,18 +166,12 @@ def train(args):
     best_rho = -1
 
     # grab data
-    data_fpath = 'tasks/%s/tasks/%s.csv' %(args.dataset, args.task)
-    df = pd.read_csv(data_fpath)
-    df = df.astype({'target': float})
-    df = df.rename({'set': 'split'}, axis='columns')
-    idx = df[df['split'] == 'train'].index
-    n_valid = len(idx) // 10
-    np.random.seed(1)
-    valid_idx = np.random.choice(idx, n_valid, replace=False)
-    df.loc[valid_idx, 'split'] = 'valid'
-    ds_train = CSVDataset(df=df, split='train', outputs=['target'])
-    ds_valid = CSVDataset(df=df, split='valid', outputs=['target'])
-    ds_test = CSVDataset(df=df, split='test', outputs=['target'])
+    split = split_dict[args.task]
+    train, val, test, _ = load_dataset(args.dataset, split+'.csv')
+
+    ds_train = SequenceDataset(train)
+    ds_valid = SequenceDataset(val)
+    ds_test = SequenceDataset(test)
 
     # setup dataloaders
     dl_train_AA = DataLoader(ds_train, collate_fn=ASCollater(alphabet, tokenizer, pad=True, pad_tok=0.),
@@ -240,37 +222,43 @@ def train(args):
                 nsteps = current_step + i + 1
             else:
                 nsteps = i
-            print('\r%s Epoch %d of %d Step %d Example %d of %d loss = %.4f'
-                  % (t, e + 1, epochs, nsteps, n_seen, n_total, np.mean(np.array(losses)),),
-                  end='')
+            #print('\r%s Epoch %d of %d Step %d Example %d of %d loss = %.4f'
+                  #% (t, e + 1, epochs, nsteps, n_seen, n_total, np.mean(np.array(losses)),),
+                  #end='')
             
         outputs = torch.cat(outputs).numpy()
         tgts = torch.cat(tgts).cpu().numpy()
         if train:
-            print('\nTraining complete in ' + str(datetime.now() - chunk_time))
+            #print('\nTraining complete in ' + str(datetime.now() - chunk_time))
             with torch.no_grad():
                 _, val_rho = epoch(model, False, current_step=nsteps)
             chunk_time = datetime.now()
         if not train:
-            print('\nValidation complete in ' + str(datetime.now() - start_time))
+            #print('\nValidation complete in ' + str(datetime.now() - start_time))
             val_rho = spearmanr(tgts, outputs).correlation
+            mse = mean_squared_error(tgts, outputs)
+
 #             print('\nEpoch complete in ' + str(datetime.now() - start_time))
         if return_values:
-            return i, val_rho, tgts, outputs
+            return i, mse, val_rho, tgts, outputs
         else:
             return i, val_rho
     nsteps = 0
     e = 0
+    bestmodel_name = 'bestmodel_'+str(args.task)+str(args.kernel_size)+'_'+str(args.input_size)+'_'+str(args.dropout)+'.tar'
     for e in range(epochs):
         s, val_rho = epoch(model, True, current_step=nsteps)
-        print(val_rho)
+        #print(val_rho)
         nsteps += s
+
+        '''
         if (e%10 == 0) or (e == epochs-1):
             torch.save({
                 'step': nsteps,
                 'model_state_dict': model.state_dict(),
                 'optimizer_state_dict': optimizer.state_dict()
             }, args.out_fpath + 'checkpoint%d.tar' % nsteps)
+        '''
         if val_rho > best_rho:
             p = 0
             best_rho = val_rho
@@ -278,19 +266,23 @@ def train(args):
                 'step': nsteps,
                 'model_state_dict': model.state_dict(),
                 'optimizer_state_dict': optimizer.state_dict()
-            }, args.out_fpath + 'bestmodel.tar')
+            }, args.out_fpath + bestmodel_name)
         else:
             p += 1 
         if p == patience:
             print('MET PATIENCE')
             break
     print('Testing...')
-    sd = torch.load(args.out_fpath + 'bestmodel.tar')
+    sd = torch.load(args.out_fpath + bestmodel_name)
     model.load_state_dict(sd['model_state_dict'])
     dl_valid_AA = dl_test_AA
-    _, val_rho, tgt, pre = epoch(model, False, current_step=nsteps, return_values=True)
-    print('rho = %.4f' %val_rho)
+    _, mse, val_rho, tgt, pre = epoch(model, False, current_step=nsteps, return_values=True)
+    print('rho = %.2f' %val_rho)
+    print('mse = %.2f' %mse)
     np.savez_compressed('%s.npz' %args.task, prediction=pre, tgt=tgt)
+    with open(Path.cwd() / 'evals_new'/ (args.dataset+'_results.csv'), 'a', newline='') as f:
+        writer(f).writerow([args.dataset, 'CNN', split, '', '', '', val_rho, mse, e, args.kernel_size, args.input_size, args.dropout])
+
 
 
 def main():
@@ -299,8 +291,22 @@ def main():
     parser.add_argument('task', type=str)
     parser.add_argument('out_fpath', type=str, help='save directory')
     parser.add_argument('--gpu', type=int, default=0)
+    parser.add_argument('--ensemble',action='store_true')
+    parser.add_argument('--kernel_size', type=int, default=5)
+    parser.add_argument('--input_size', type=int, default=1024)
+    parser.add_argument('--dropout', type=float, default=0.0)
+
     args = parser.parse_args()
-    train(args)
+
+    if args.ensemble:
+        for i in range(10):
+            np.random.seed(i)
+            torch.manual_seed(i)
+            train(args)
+    else:
+        np.random.seed(10)
+        torch.manual_seed(10)
+        train(args)
 
 if __name__ == '__main__':
     main()
