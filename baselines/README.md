@@ -37,8 +37,8 @@ The following shorthands for splits are  used in running the scripts:
 - `aav_4`: `two_vs_many`
 - `aav_5`: `seven_vs_many`
 - `aav_6`: `low_vs_high`
-- `aav_7`: `sampled`,
-- `meltome_1` : `mixed_split
+- `aav_7`: `sampled`
+- `meltome_1` : `mixed_split`
 - `meltome_2`: `human`
 - `meltome_3` : `human_cell`
 - `gb1_1`: `one_vs_rest`
