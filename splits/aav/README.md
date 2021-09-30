@@ -1,5 +1,3 @@
-🟢 ACTIVE
-
 ### Dataset description
 
 The original sequence from the aav study is UniProt [P03135](https://www.uniprot.org/uniprot/P03135). A copy of the wildtype sequence can be found in this folder as P03135.fasta
@@ -28,13 +26,14 @@ The full dataset can be found in the zipped CSV `full_data.csv.zip`. All "splits
 We define as "des" all those sequences in partitions: `'previous_chip_viable', 'previous_chip_nonviable', 'stop', 'singles', 'single', 'designed', 'wild_type', 'random_doubles'`.
 On the other hand, "mut" are sequences in all other partitions (designed through machine learning).
 
-- `des_mut`: `train` if in "des", `test` otherwise
-- `mut_des`: `train` if in "mut", `test` otherwise
-- `one_vs_many`: `train` if in "des" with `levenshtein_distance <= 1` , `test` if in "des" with `levenshtein_distance > 1`
-- `two_vs_many`: `train` if in "des" with `levenshtein_distance <= 2` , `test` if in "des" with `levenshtein_distance > 2`
-- `seven_vs_many`: `train` if in "des" with `levenshtein_distance <= 7` , `test` if in "des" with `levenshtein_distance > 7`
-- `low_vs_high.csv`: `train` if in "des" with `score` below or equal WT, `test` if in "des" with `score` above WT.
-- `sampled`: `train` for 80% of data in "des", `test` for the remaining 20% in "des"
+Splits ([semaphore legend](../../README.md#split-semaphore)):
+- 🟢 `des_mut`: `train` if in "des", `test` otherwise 
+- 🟢 `mut_des`: `train` if in "mut", `test` otherwise
+- 🟢 `one_vs_many`: `train` if in "des" with `levenshtein_distance <= 1` , `test` if in "des" with `levenshtein_distance > 1`
+- 🟢 `two_vs_many`: `train` if in "des" with `levenshtein_distance <= 2` , `test` if in "des" with `levenshtein_distance > 2`
+- 🟢 `seven_vs_many`: `train` if in "des" with `levenshtein_distance <= 7` , `test` if in "des" with `levenshtein_distance > 7`
+- 🟢 `low_vs_high`: `train` if in "des" with `score` below or equal WT, `test` if in "des" with `score` above WT.
+- 🟠 `sampled`: `train` for 80% of data in "des", `test` for the remaining 20% in "des"
 
 All splits are contained in the `splits.zip` file. These are CSV with colums:
 

@@ -1,5 +1,3 @@
-🟢 ACTIVE
-
 ### Dataset description
 
 The GB1 "four" variations set stems from a [2016 publication](https://elifesciences.org/articles/16965) in which mutations at four sites (V39, D40, G41 and V54) were probed against a binding assay. 
@@ -15,13 +13,14 @@ The `four_mutations_full_data.csv` is an extension of the [supplement to the 201
 ### Splits
 
 All splits are regression splits on the `Fittness` value reported by the [2016 publication](https://elifesciences.org/articles/16965) in the [supplement](https://doi.org/10.7554/eLife.16965.024).
-Train/Test splits are done as follows:
+Train/Test splits are done as follows.
 
-- `one_vs_rest.csv`: `train` is wild type and all single mutations, `test` is everything else.
-- `two_vs_rest.csv`: `train` is wild type, all single & double mutations, `test` is everything else.
-- `three_vs_rest.csv`: `train` is wild type, all single, double & triple mutations, `test` is everything else.
-- `sampled.csv`: Randomly split sequences into `train`/`test` with 80/20% probability.
-- `low_vs_high.csv`: `train` are sequences with fitness below WT, `test` is everything else.
+Splits ([semaphore legend](../../README.md#split-semaphore)):
+- 🟢 `one_vs_rest`: `train` is wild type and all single mutations, `test` is everything else.
+- 🟢 `two_vs_rest`: `train` is wild type, all single & double mutations, `test` is everything else.
+- 🟢 `three_vs_rest`: `train` is wild type, all single, double & triple mutations, `test` is everything else.
+- 🟢 `low_vs_high`: `train` are sequences with fitness below WT, `test` is everything else.
+- 🟠 `sampled`: Randomly split sequences into `train`/`test` with 80/20% probability.
 
 
 All splits are contained in the `splits.zip` file. These are CSV with colums:

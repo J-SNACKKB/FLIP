@@ -1,5 +1,3 @@
-🔴 DEPRECATED
-
 ### Dataset description
 
 The original data was collected from the [supplementary material](https://static-content.springer.com/esm/art%3A10.1038%2Fs41598-017-17081-y/MediaObjects/41598_2017_17081_MOESM2_ESM.xlsx) of [Spencer and Zhang](https://www.nature.com/articles/s41598-017-17081-y).
@@ -15,16 +13,18 @@ The selected measures from this manuscript were:
 
 The `positive_mutation_matrix.csv` and `negative_mutation_matrix.csv` are LxN matrices representing either the positive or negative selection score for each AA subsitution along the protein length (L).
 
-### Tasks
+### Splits
 
-Both tasks are regression tasks, one being the Log2 Fold change after positive selection, the other after negative selection. 
+Both splits are regression splits, one being the Log2 Fold change after positive selection, the other after negative selection. 
 Train/Test splits are done on the [PI domain](https://pfam.xfam.org/family/PF16595), meaning: train sequences are those with mutations NOT in the PI domain, while test sequences are those with mutations in the PI domain.
 
+- 🔴 positive_selection
+- 🔴 negative_selection
 
-All tasks are contained in the `tasks.zip` file. These are CSV with colums:
+All splits are contained in the `splits.zip` file. These are CSV with colums:
 
 - `sequence`: the AA sequence. May contain special characters!
-- `target`: the prediction target, which is float value (the task is a regression).
+- `target`: the prediction target, which is float value (the splits is a regression).
 - `set`: either `train` or `test`, if the sequence should be used for training or testing your model!
 
 ### Cite
@@ -49,4 +49,4 @@ Bibtex:
 ### Data licensing
 
 The RWA data downloaded from Springer Nature is subject to [Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
-Modified data available in this repository and in the `tasks` falls under [AFL-3](https://opensource.org/licenses/AFL-3.0).
+Modified data available in this repository and in the `splits` falls under [AFL-3](https://opensource.org/licenses/AFL-3.0).
