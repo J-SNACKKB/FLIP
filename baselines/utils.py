@@ -169,18 +169,18 @@ def load_esm_dataset(dataset, model, split, mean, mut_mean, flip, gb1_shorten=Fa
         train = torch.load(PATH / 'train_aa.pt') #data_len x seq x 1280
         val = torch.load(PATH / 'val_aa.pt')
         test = torch.load(PATH / 'test_aa.pt') #data_len x seq x 1280
+
+        if dataset == 'gb1' and gb1_shorten == True: #fix the sequence to be shorter
+            print('shortening gb1 to first 56 AAs')
+            train = train[:, :56, :]
+            val = val[:, :56, :]
+            test = test[:, :56, :]
     
     if dataset == 'aav' and mut_mean == True:
         train = torch.mean(train[:, 560:590, :], 1)
         val = torch.mean(val[:, 560:590, :], 1)
         test = torch.mean(test[:, 560:590, :], 1)
 
-    if dataset == 'gb1' and gb1_shorten == True: #fix the sequence to be shorter
-        print('shortening gb1 to first 56 AAs')
-        train = train[:, :56, :]
-        val = val[:, :56, :]
-        test = test[:, :56, :]
-        
     if dataset == 'gb1' and mut_mean == True: #positions 39, 40, 41, 54 in sequence
         train = torch.mean(train[:, [38, 39, 40, 53], :], 1)
         val = torch.mean(val[:, [38, 39, 40, 53], :], 1)
