@@ -30,7 +30,6 @@ Once embedded and saved in `.pt` format, ESM models can be run using the `train_
  ```$ python train_all.py aav_1 esm1b 3```
 
 The following shorthands for splits are  used in running the scripts:
-- `aav_1`: `des_mut`
 - `aav_1`: `des_mut` 
 - `aav_2`: `mut_des`
 - `aav_3`: `one_vs_many`
