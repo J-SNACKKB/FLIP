@@ -98,11 +98,11 @@ def train_eval(dataset, model, split, device, mean, mut_mean, batch_size, flip, 
         # load data
         train, val, test, _ = load_dataset(dataset, split+'.csv', gb1_shorten=gb1_shorten)
         collate = ASCollater(vocab, Tokenizer(vocab), pad=True)
+        if dataset == 'meltome': 
+            batch_size = 30 # smaller batch sizes for meltome since seqs are long
         train_iterator = DataLoader(SequenceDataset(train), collate_fn=collate, batch_size=batch_size, shuffle=True, num_workers=4)
         val_iterator = DataLoader(SequenceDataset(val), collate_fn=collate, batch_size=batch_size, shuffle=True, num_workers=4)
         test_iterator = DataLoader(SequenceDataset(test), collate_fn=collate, batch_size=batch_size, shuffle=True, num_workers=4)
-        if dataset == 'meltome': 
-            batch_size = 30 # smaller batch sizes for meltome since seqs are long
         # initialize model
         cnn_model = FluorescenceModel(len(vocab), kernel_size, input_size, dropout) 
         # create optimizer and loss function
