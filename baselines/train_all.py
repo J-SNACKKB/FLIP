@@ -45,7 +45,6 @@ def create_parser():
     parser.add_argument("gpu", type=str, nargs='?', default='0')
     parser.add_argument("--mean", action="store_true")
     parser.add_argument("--mut_mean", action="store_true")
-    parser.add_argument("--random_sample", action="store_true") # removed for now as low-N splits were not prepared
     parser.add_argument("--flip", action="store_true") # for flipping mut-des and des-mut
     parser.add_argument("--ensemble", action="store_true") 
     parser.add_argument("--lr", type=float, default=0.001)

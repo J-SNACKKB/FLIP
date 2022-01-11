@@ -22,14 +22,17 @@ Further details about our baselines are below:
 | ESM-untrained (mean)     | 750M param transformer with randomly initialized weights | per-sequence ESM embeddings (1280 x 1) | Mean across entire sequence  | 2 Dense Layers |
 | ESM-untrained (mut mean) | 750M param transformer with randomly initialized weights | per-AA ESM embeddings (1280 x seq)     | Mean across mutated residues | 2 Dense Layers |
 
-## ESM (Evolutionary Scale Modeling)
+## ESM (Evolutionary Scale Modeling) Embedding
 
 All datasets need to first be embedded using the appropriate ESM model (ESM-1b, ESM-1v, ESM-untrained). We provide a script, `embeddings.py`, that 1) performs bulk ESM embeddings using pretrained models and 2) saves concatenated PyTorch tensors for train, test, and validation splits. More information on ESM embeddings can be found at the original [ESM repo](https://github.com/facebookresearch/esm).
 
 Once embedded and saved in `.pt` format, ESM models can be run using the `train_all.py` script. For example, the following command trains the des-mut AAV split on ESM-1b using GPU 3:
  ```$ python train_all.py aav_1 esm1b 3```
 
-The following shorthands for splits are  used in running the scripts:
+
+## `train_all.py`:
+
+The following shorthands for splits are used in running the scripts:
 - `aav_1`: `des_mut`
 - `aav_1`: `des_mut` 
 - `aav_2`: `mut_des`
@@ -47,45 +50,25 @@ The following shorthands for splits are  used in running the scripts:
 - `gb1_4`: `sampled`
 - `gb1_5`: `low_vs_high`
 
-### Arguments for `train_all.py`:
+### Arguments 
+
 - `split` choose from shorthand above
-- `model` choose from `esm1b`, `esm1v`, `esm_rand` (ESM-untrained)
+- `model` choose from `ridge`, `cnn`,`esm1b`, `esm1v`, `esm_rand` (esm untrained)
+- `gpu` default 0
 
 Optional:
 - `--mean` take the mean across all sequences 
 - `--mut_mean` take the mean in the mutated regions only (only applicable for GB1 and AAV)
-- `--lr 0.001` set the learning rate - default 0.001
 - `--ensemble` run the model 10 times with different seeds
+- `--gb1_shorten` truncate gb1 to one domain, as tested in the dataset paper (will be finalized at later date)
 
+Hyperparameters: 
+- `--lr 0.001` learning rate for ESM models - default 0.001
+- `--kernel_size` kernel size for CNN models - default 5 
+- `--input_size` input size for CNN models - default 1024
+- `--dropout` dropout for CNN models - default 0.0
+- `--alpha` alpha value for ridge regression - default 1.0
 
-## CNN 
-
-The CNN model does not require any embedding. To run the des-mut AAV split on GPU 3:
-```$ python cnn.py aav aav_5 /path/to/model/save/ --gpu 3```
-
-### Arguments for `cnn.py`:
-- `dataset` choose from aav, gb1, meltome
-- `split` choose from shorthand above
-- `/path/to/model/save/` where to save trained model; used later in testing
-- `--gpu #` GPU to use
-
-Optional:
-- `--kernel_size` kernel size of the 1D CNN, default 5
-- `--input_size` input channels of the CNN; outputs are 2xinput, default 1024
-- `--dropout` amount of dropout, default 0.0
-- `--ensemble` run the model 10 times with different seeds
-
-## Ridge
-
-To run ridge regression on des-mut AAV split:
-- ```$ python linear_models.py aav aav_1```
-
-### Arguments for `linear_models.py`:
-- `dataset` choose from aav, gb1, meltome
-- `split` choose from shorthand above
-
-Optional:
-- `--alpha` regularization strength 
 
 ## Levenshtein and BLOSUM62
 
@@ -93,4 +76,4 @@ Both of these can be run in the `levenshtein_blosum62_baselines.ipynb` notebook 
 
 ## Results
 
-Results from all baselines will be saved to a results file, e.g. `aav_results.csv` with the following headers: [dataset, model, split, index, train rho, train MSE, test rho, test MSE, epochs trained, hyperparameters used]
+Results from all baselines will be saved to a results file, e.g. `aav_results.csv` with the following headers: [dataset', 'model', 'split', 'train_rho', 'train_mse', 'test_rho', 'test_mse', 'epochs_trained', 'lr', 'kernel_size', 'input_size', 'dropout', 'alpha', 'gb1_shorten']
