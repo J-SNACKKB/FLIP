@@ -1,6 +1,6 @@
 import sys 
 
-from filepaths import * 
+from .filepaths import * 
 sys.path.append(SEQ_MODELS)
 from sequence_models.structure import Attention1d
 

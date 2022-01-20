@@ -2,7 +2,7 @@ import numpy as np
 import random
 import sys
 from pathlib import Path
-from filepaths import * 
+from .filepaths import * 
 
 import torch
 import torch.nn as nn
@@ -13,10 +13,10 @@ from csv import writer
 
 sys.path.append(BASELINE_DIR)
 
-from utils import *
-from evals import *
-from models import * 
-from train import * 
+from .utils import *
+from .evals import *
+from .models import * 
+from .train import * 
 
 import argparse 
 

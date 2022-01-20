@@ -4,7 +4,7 @@ import pandas as pd
 import sys 
 import re
 from pathlib import Path
-from filepaths import * 
+from .filepaths import * 
 from typing import List, Any
 
 import torch
