@@ -37,9 +37,9 @@ FLIP
 ## About `train_and_eval.py` file:
 
 ### Arguments
-- `split`: name of the split to be evaluated from a list of available splits. Used to obtain tmp files `sequence_file` and `labels_file`, and database of origin used to select the corresponding config file.
+- `split`: name of the split to be evaluated from a list of available splits. Used to obtain tmp files required following the requirements of biotrainer (to be decided/standarized). E.g. could be `sequence_file.fasta` and `labels_file.fasta`. Also to select the database of origin used to select the corresponding config file.
 - `embeddings`: name of the embeddings to be used from a list of available embeddings.
-- `embeddings_file_path`: path to the embeddings file <--- Should we offer this option as in biotrainer?
+- `embeddings_file_path`: path to the embeddings file.
 - The same as in biotrainer / offered in the configuration files for possible modifications of the dataset associated config.
 
 ### Schema of the script
