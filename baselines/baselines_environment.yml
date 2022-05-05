@@ -21,6 +21,8 @@ dependencies:
   - blas=1.0=mkl
   - bleach=3.3.0=pyh44b312d_0
   - bokeh=2.3.3=py39h06a4308_0
+  - bottleneck=1.3.4=py39hce1f21e_0
+  - brotli=1.0.9=he6710b0_2
   - brotlipy=0.7.0=py39h3811e60_1001
   - bzip2=1.0.8=h7b6447c_0
   - ca-certificates=2021.5.30=ha878542_0
@@ -40,6 +42,7 @@ dependencies:
   - ffmpeg=4.3=hf484d3e_0
   - firefox=90.0=h9c3ff4c_0
   - fontconfig=2.13.0=h9420a91_0
+  - fonttools=4.25.0=pyhd3eb1b0_0
   - freetype=2.10.4=h5ab3b9f_0
   - geckodriver=0.29.1=h3146498_0
   - glib=2.56.2=hd408876_0
@@ -94,6 +97,7 @@ dependencies:
   - mkl-service=2.3.0=py39h27cfd23_1
   - mkl_fft=1.3.0=py39h42c9631_2
   - mkl_random=1.2.1=py39ha9443f7_2
+  - munkres=1.1.4=py_0
   - nbclassic=0.3.1=pyhd8ed1ab_1
   - nbclient=0.5.3=pyhd8ed1ab_0
   - nbconvert=6.1.0=py39hf3d152e_0
@@ -103,6 +107,7 @@ dependencies:
   - nettle=3.7.3=hbbd107a_1
   - ninja=1.10.2=hff7bd54_1
   - notebook=6.4.0=pyha770c72_0
+  - numexpr=2.7.3=py39h22e1b3c_1
   - olefile=0.46=py_0
   - openh264=2.1.0=hd408876_0
   - openssl=1.1.1k=h7f98852_0
@@ -182,5 +187,6 @@ dependencies:
     - python-levenshtein==0.12.2
     - scikit-learn==0.24.2
     - scipy==1.7.0
+    - sequence-models==1.0.0
     - threadpoolctl==2.1.0
 
