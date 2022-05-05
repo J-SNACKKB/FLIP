@@ -66,6 +66,11 @@ def create_parser():
         action="store_true"
     )
 
+    parser.add_argument(
+        "--local_esm_model",
+        action="store_true"
+    )
+
 
     return parser
 
@@ -104,6 +109,9 @@ def main(args):
     
     if args.bulk_compute:
         print('sending command line arguments')
+
+        if args.local_esm_model:
+            esm_dict[args.esm_version] = esm_dict[args.esm_version]+'.pt'
 
         if args.truncate:
             exit_code = os.system('python esm/scripts/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'train.fasta') + ' ' + str(PATH / 'train') + ' ' + '--repr_layers 33 --include mean per_tok --truncate')

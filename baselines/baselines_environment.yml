@@ -178,7 +178,7 @@ dependencies:
   - pip:
     - biopython==1.79
     - debugpy==1.4.1
-    - fair-esm==0.4.0
+    - fair-esm==0.4.2
     - ipykernel==6.0.3
     - joblib==1.0.1
     - matplotlib==3.4.2
