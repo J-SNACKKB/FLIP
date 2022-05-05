@@ -106,15 +106,18 @@ def main(args):
         print('sending command line arguments')
 
         if args.truncate:
-            os.system('python ../../esm/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'train.fasta') + ' ' + str(PATH / 'train') + ' ' + '--repr_layers 33 --include mean per_tok --truncate')
-            os.system('python ../../esm/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'test.fasta') + ' ' + str(PATH / 'test') + ' ' + '--repr_layers 33 --include mean per_tok --truncate')
-            os.system('python ../../esm/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'val.fasta') + ' ' + str(PATH / 'val') + ' ' + '--repr_layers 33 --include mean per_tok --truncate')
+            exit_code = os.system('python esm/scripts/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'train.fasta') + ' ' + str(PATH / 'train') + ' ' + '--repr_layers 33 --include mean per_tok --truncate')
+            os.system('python esm/scripts/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'test.fasta') + ' ' + str(PATH / 'test') + ' ' + '--repr_layers 33 --include mean per_tok --truncate')
+            os.system('python esm/scripts/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'val.fasta') + ' ' + str(PATH / 'val') + ' ' + '--repr_layers 33 --include mean per_tok --truncate')
 
         else:
-            os.system('python ../../esm/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'train.fasta') + ' ' + str(PATH / 'train') + ' ' + '--repr_layers 33 --include mean per_tok')
-            os.system('python ../../esm/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'test.fasta') + ' ' + str(PATH / 'test') + ' ' + '--repr_layers 33 --include mean per_tok')
-            os.system('python ../../esm/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'val.fasta') + ' ' + str(PATH / 'val') + ' ' + '--repr_layers 33 --include mean per_tok')
-    
+            exit_code = os.system('python esm/scripts/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'train.fasta') + ' ' + str(PATH / 'train') + ' ' + '--repr_layers 33 --include mean per_tok')
+            os.system('python esm/scripts/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'test.fasta') + ' ' + str(PATH / 'test') + ' ' + '--repr_layers 33 --include mean per_tok')
+            os.system('python esm/scripts/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'val.fasta') + ' ' + str(PATH / 'val') + ' ' + '--repr_layers 33 --include mean per_tok')
+        
+        if exit_code != 0:
+            raise FileNotFoundError("Have you run `git submodule update --init` to populate the `esm` submodule?")
+
     if args.concat_tensors:
         print('making empty tensors for train set')
         # train set
