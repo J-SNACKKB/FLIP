@@ -1,21 +1,20 @@
 ### Dataset description
 
-The SCL "six" variations set stems from a [2021 publication](https://academic.oup.com/bioinformaticsadvances/article/1/1/vbab035/6432029) (base on a [2017 publication](https://academic.oup.com/bioinformatics/article/33/21/3387/3931857)) and a [2022 publicaiton](https://academic.oup.com/nar/advance-article/doi/10.1093/nar/gkac278/6576357) in which the prediction of proteins subcellular localization where tested.
+The six SCL (SubCellularLocation) splits stems from a [2021 publication](https://academic.oup.com/bioinformaticsadvances/article/1/1/vbab035/6432029) (based on a [2017 publication](https://academic.oup.com/bioinformatics/article/33/21/3387/3931857)) and a [2022 publicaiton](https://academic.oup.com/nar/advance-article/doi/10.1093/nar/gkac278/6576357) which aim at predicting protein subcellular location.
 
-The possible subcellular localizations are `Cytoplasm`, `Nucleus`, `Cell membrane`, `Mitochondrion`, `Endoplasmic reticulum`, `Lysosome/Vacuole`, `Golgi apparatus`, `Peroxisome`, `Extracellular` and `Plastid`.
+The possible subcellular localizations (in the splits, assigned to `TARGET`) are `Cytoplasm`, `Nucleus`, `Cell membrane`, `Mitochondrion`, `Endoplasmic reticulum`, `Lysosome/Vacuole`, `Golgi apparatus`, `Peroxisome`, `Extracellular` and `Plastid`.
 
 ### Full dataset
 
-The `deeploc_our_train_set.fasta`, `deeploc_our_val_set.fasta`, `deeploc_our_test_set.fasta` and `setHARD.fast` are the source dataset from [2021 publication](https://academic.oup.com/bioinformaticsadvances/article/1/1/vbab035/6432029) used to create the DeepLoc 1.0 splits. The `human_sequences.tsv` is used to recover the human proteins from the DeepLoc 1.0 set.
+The `deeploc_our_train_set.fasta`, `deeploc_our_val_set.fasta`, `deeploc_our_test_set.fasta` and `setHARD.fast` are the source dataset from [the Light Attention (LA) 2021 publication](https://academic.oup.com/bioinformaticsadvances/article/1/1/vbab035/6432029) used to create the DeepLoc 1.0 splits. The `human_sequences.tsv` is used to recover the human proteins from the DeepLoc 1.0 set.
 
-The `Swissprot_Train_Validation_dataset.csv` and the `hpa_testset.csv` are the training/validation and test set from the [2022 publicaiton](https://academic.oup.com/nar/advance-article/doi/10.1093/nar/gkac278/6576357) used to create the DeepLoc 2.0 split.
+The `Swissprot_Train_Validation_dataset.csv` and the `hpa_testset.csv` are the training/validation and test set from the [DeepLoc v2 2022 publicaiton](https://academic.oup.com/nar/advance-article/doi/10.1093/nar/gkac278/6576357) used to create the DeepLoc 2.0 split.
 
 Due to the size of these files, they can be found at http://data.bioembeddings.com/public/FLIP/scl/.
 
 ### Splits
 
-All splits are regression splits on the `Fittness` value reported by the [2016 publication](https://elifesciences.org/articles/16965) in the [supplement](https://doi.org/10.7554/eLife.16965.024).
-Train/Test splits are done as follows.
+All splits are classification splits as explained prior. Train/Test splits are done as follows.
 
 Splits ([semaphore legend](../../README.md#split-semaphore)):
 - From DeepLoc 1.0:
@@ -54,6 +53,25 @@ note = {vbab035},
 eprint = {https://academic.oup.com/bioinformaticsadvances/article-pdf/1/1/vbab035/41640353/vbab035.pdf},
 }
 ```
+
+```
+@article{10.1093/bioinformatics/btx431,
+author = {Almagro Armenteros, José Juan and Sønderby, Casper Kaae and Sønderby, Søren Kaae and Nielsen, Henrik and Winther, Ole},
+title = "{DeepLoc: prediction of protein subcellular localization using deep learning}",
+journal = {Bioinformatics},
+volume = {33},
+number = {21},
+pages = {3387-3395},
+year = {2017},
+month = {07},
+abstract = "{The prediction of eukaryotic protein subcellular localization is a well-studied topic in bioinformatics due to its relevance in proteomics research. Many machine learning methods have been successfully applied in this task, but in most of them, predictions rely on annotation of homologues from knowledge databases. For novel proteins where no annotated homologues exist, and for predicting the effects of sequence variants, it is desirable to have methods for predicting protein properties from sequence information only.Here, we present a prediction algorithm using deep neural networks to predict protein subcellular localization relying only on sequence information. At its core, the prediction model uses a recurrent neural network that processes the entire protein sequence and an attention mechanism identifying protein regions important for the subcellular localization. The model was trained and tested on a protein dataset extracted from one of the latest UniProt releases, in which experimentally annotated proteins follow more stringent criteria than previously. We demonstrate that our model achieves a good accuracy (78\\% for 10 categories; 92\\% for membrane-bound or soluble), outperforming current state-of-the-art algorithms, including those relying on homology information.The method is available as a web server at http://www.cbs.dtu.dk/services/DeepLoc. Example code is available at https://github.com/JJAlmagro/subcellular\_localization. The dataset is available at http://www.cbs.dtu.dk/services/DeepLoc/data.php.}",
+issn = {1367-4803},
+doi = {10.1093/bioinformatics/btx431},
+url = {https://doi.org/10.1093/bioinformatics/btx431},
+eprint = {https://academic.oup.com/bioinformatics/article-pdf/33/21/3387/25166063/btx431.pdf},
+}
+```
+
 ```
 @article{10.1093/nar/gkac278,
 author = {Thumuluri, Vineet and Almagro Armenteros, José Juan and Johansen, Alexander Rosenberg and Nielsen, Henrik and Winther, Ole},
