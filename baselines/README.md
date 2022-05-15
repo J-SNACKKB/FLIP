@@ -24,7 +24,7 @@ Further details about our baselines are below:
 
 ## ESM (Evolutionary Scale Modeling) Embedding
 
-All datasets need to first be embedded using the appropriate ESM model (ESM-1b, ESM-1v, ESM-untrained). We provide a script, `embeddings.py`, that 1) performs bulk ESM embeddings using pretrained models and 2) saves concatenated PyTorch tensors for train, test, and validation splits. More information on ESM embeddings can be found at the original [ESM repo](https://github.com/facebookresearch/esm).
+All datasets need to first be embedded using the appropriate ESM model (ESM-1b, ESM-1v, ESM-untrained). We provide a script, `embeddings.py`, that 1) performs bulk ESM embeddings using pretrained models and 2) saves concatenated PyTorch tensors for train, test, and validation splits. More information on ESM embeddings can be found at the original [ESM repo](https://github.com/facebookresearch/esm). The ESM repo is included as a submodule of this repo, so you can use `git submodule update --init` to populate the `esm` submodule (if you didn't use the `--recurse-submodules` argument when cloning this repo).
 
 Once embedded and saved in `.pt` format, ESM models can be run using the `train_all.py` script. For example, the following command trains the des-mut AAV split on ESM-1b using GPU 3:
  ```$ python train_all.py aav_1 esm1b 3```

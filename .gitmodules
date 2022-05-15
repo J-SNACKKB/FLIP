@@ -1,0 +1,4 @@
+[submodule "baselines/esm"]
+	path = baselines/esm
+	url = git@github.com:facebookresearch/esm.git
+	branch = v0.4.2
