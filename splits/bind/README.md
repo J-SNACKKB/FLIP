@@ -16,7 +16,7 @@ Splits ([semaphore legend](../../README.md#split-semaphore)):
 - Working at protein-level (train on sequences with X ligan type(s), test on else (~18% of the proteins have >1 type of ligand)):
     - 🟢 `one_vs_many`: train on proteins with only 1 type of ligand, test on proteins with 2 and 3 types of ligands
     - 🟢 `two_vs_many`: train on proteins with 1 or 2 types of ligand, test on proteins with 3 types of ligand
-    - 🟢 `three_vs_many`: train on proteins with 1 or 2 types of ligand from original training set, test on original test sets TestSet300 and TestSetNew46 mixed.
+    - 🟢 `three_vs_many`: train on proteins with 1, 2 or 3 types of ligand from original training set, test on original test sets TestSet300 and TestSetNew46 mixed.
 
 - Working at residue-level (train on sequences with residues assigned to only 1 type of ligand, test on sequences with residues assigned to multiple classes (~4% of the residues have more than one type of ligand)):
     - 🟢 `one_vs_sm`: train on proteins with residues having only one type of ligand, test on proteins with residues having Small+Metal ligands
