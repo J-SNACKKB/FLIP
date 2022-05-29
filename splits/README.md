@@ -20,6 +20,13 @@ Current splits ([semaphore legend](../README.md#split-semaphore)):
   - 🟢 `human_cell`
   - 🔴 `full`
   - 🔴 `clustered`
+- SCL
+  - 🟢 `mixed_soft`
+  - 🟢 `mixed_hard`
+  - 🟢 `human_soft`
+  - 🟢 `human_hard`
+  - 🟢 `balanced`
+  - 🟢 `mixed_vs_human_2`
 - CAS9
   - 🔴 `positive_selection`
   - 🔴 `negative_selection`

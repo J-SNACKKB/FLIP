@@ -21,8 +21,11 @@ def read_fasta(path: str) -> List[SeqRecord]:
     pass
 
 
-def plot_data_statistics(dataframe, column_name, fitness_colum):
-    fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(8, 8))
+def plot_data_statistics(dataframe, column_name, fitness_colum, figsize=(8,8), rotation=0):
+    fig, ax = plt.subplots(nrows=2, ncols=2, figsize=figsize)
+    ax[1][0].tick_params(axis='x', rotation=rotation)
+    ax[1][1].tick_params(axis='x', rotation=rotation)
+    
     dataframe[f'{column_name}'].hist(ax=ax[0,0])
     dataframe.query(f'{column_name}=="train"')[fitness_colum].hist(ax=ax[1,0])
     dataframe.query(f'{column_name}=="test"')[fitness_colum].hist(ax=ax[1,1])
