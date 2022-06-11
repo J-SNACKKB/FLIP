@@ -27,6 +27,10 @@ Current splits ([semaphore legend](../README.md#split-semaphore)):
   - 🟢 `human_hard`
   - 🟢 `balanced`
   - 🟢 `mixed_vs_human_2`
+- 2STR
+  - 🟠 `sampled`
+- Conservation
+  - 🟠 `sampled`
 - CAS9
   - 🔴 `positive_selection`
   - 🔴 `negative_selection`
