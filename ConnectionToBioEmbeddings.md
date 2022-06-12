@@ -16,15 +16,15 @@ FLIP
 │
 └───splits/
 │
-└───advanced/ <---------------------- Here goes the connection to bio-embeddings (Name for the folder?)
+└───advanced/ <---------------------- Here goes the connection to bio-embeddings (using biotrainer) (Name for the folder?)
 │   │
-│   └───advenced_environment.yml <-- File with the required environment for the execution 
+│   └───advenced_environment.yml <-- File with the required environment for the execution OR some description about poetry/docker etc.
 │   │
 │   └───train_and_eval.py <--------- Here goes the script for the training and evaluation of the splits
 │   │
 │   └───utils.py <------------------- Here go auxiliary functions (if required)
 │   │   
-│   └───configs_bank/ <-------------- Here go the configuration files (recommended config) for the different splits
+│   └───configsbank/ <-------------- Here go the configuration files (recommended, basic and default config) for the different splits
 │   │   
 │   │   config_aav.txt
 │   │   config_gb1.txt
@@ -44,22 +44,21 @@ FLIP
 
 ### Schema of the script
 
-1. Read the arguments
-2. Load a memory copy of the config file associated to the selected split
-3. Look for possible incompatibiliest between the input arguments (modifications of the recommended config) and the selected split
-4. (If not incompatibilities in 3) Modify the in-memory copy of the config file with the input arguments
-5. Prepare the data as expected by biotrainer (`sequence_file` and `labels_file`)
-6. Create folder to allocate the results
-7. Pass the control to biotrainer with a call using the in-memory config file
-
+1. Get the arguments  
+  1.1. If `--config` is not provided, use the default config file in `configsbank/`. If provided, use the provided one.
+2. [FOR FUTURE VERSIONS] Look for possible incompatibiliest between the configuration file (if it is not the default) and the selected split
+3. Prepare the data of the split as expected by biotrainer (`sequence_file` and `labels_file`)
+4. Create (temporal) copy of the configuration file with the path to the data of the selected split and the selected embedding
+5. Create folder to allocate the results
+6. Pass the control to biotrainer with a call using poetry/docker
 
 ## About `utils.py` file:
 
 TO DO
 
 
-## About `configs_bank` folder:
-- The `configs_bank` folder contains the expected and recomended configuration files for the different datasets.
+## About `configsbank` folder:
+- The `configsbank` folder contains the expected and recomended configuration files for the different datasets.
 - The configuration files are named after the dataset: `config_<dataset_name>.txt`.
 - The configuration files follow the format expected by biotrainer, e.g.:
 ```yaml
@@ -74,10 +73,10 @@ use_class_weights: False # Balance class weights by using class sample size in t
 learning_rate: 1e-3 # 0-n : Model learning rate
 batch_size: 128 # 1-n : Batch size
 embedder_name: prottrans_t5_xl_u50 # one_hot_encoding | word2vec | prottrans_t5_xl_u50 | ... : Sequence embedding method (see below)
-embeddings_file_path: /path/to/embeddings.h5 # optional, if defined will use 'embedder_name' to name experiment
+embeddings_file: /path/to/embeddings.h5 # optional, if defined will use 'embedder_name' to name experiment
 ```
-- - `sequence_file` and `labels_file` should be empty and completed once the user specify the dataset/split to be tested.
-- - The rest of the parameters must include a basic/recomended preset value, only modified if the user wants to change it through arguments in the entry point.
+  - `sequence_file` and `labels_file` should be empty and completed once the user specify the dataset/split to be tested.
+  - The rest of the parameters must include a basic/recomended preset value.
 
 
 
