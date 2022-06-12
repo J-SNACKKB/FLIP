@@ -16,7 +16,7 @@ from pathlib import Path
 
 import argparse 
 
-sys.path.append('/../../FLIP/baselines/')
+sys.path.append('../../FLIP/baselines/')
 from utils import load_dataset
 from train_all import split_dict
 
@@ -66,6 +66,11 @@ def create_parser():
         action="store_true"
     )
 
+    parser.add_argument(
+        "--local_esm_model",
+        action="store_true"
+    )
+
 
     return parser
 
@@ -105,16 +110,22 @@ def main(args):
     if args.bulk_compute:
         print('sending command line arguments')
 
+        if args.local_esm_model:
+            esm_dict[args.esm_version] = esm_dict[args.esm_version]+'.pt'
+
         if args.truncate:
-            os.system('python /.../esm/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'train.fasta') + ' ' + str(PATH / 'train') + ' ' + '--repr_layers 33 --include mean per_tok --truncate --gpu '+args.gpu)
-            os.system('python /.../esm/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'test.fasta') + ' ' + str(PATH / 'test') + ' ' + '--repr_layers 33 --include mean per_tok --truncate --gpu '+args.gpu)
-            os.system('python /.../esm/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'val.fasta') + ' ' + str(PATH / 'val') + ' ' + '--repr_layers 33 --include mean per_tok --truncate --gpu '+args.gpu)
+            exit_code = os.system('python esm/scripts/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'train.fasta') + ' ' + str(PATH / 'train') + ' ' + '--repr_layers 33 --include mean per_tok --truncate')
+            os.system('python esm/scripts/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'test.fasta') + ' ' + str(PATH / 'test') + ' ' + '--repr_layers 33 --include mean per_tok --truncate')
+            os.system('python esm/scripts/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'val.fasta') + ' ' + str(PATH / 'val') + ' ' + '--repr_layers 33 --include mean per_tok --truncate')
 
         else:
-            os.system('python /.../esm/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'train.fasta') + ' ' + str(PATH / 'train') + ' ' + '--repr_layers 33 --include mean per_tok --gpu '+args.gpu)
-            os.system('python /.../esm/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'test.fasta') + ' ' + str(PATH / 'test') + ' ' + '--repr_layers 33 --include mean per_tok --gpu '+args.gpu)
-            os.system('python /.../esm/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'val.fasta') + ' ' + str(PATH / 'val') + ' ' + '--repr_layers 33 --include mean per_tok --gpu '+args.gpu)
-    
+            exit_code = os.system('python esm/scripts/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'train.fasta') + ' ' + str(PATH / 'train') + ' ' + '--repr_layers 33 --include mean per_tok')
+            os.system('python esm/scripts/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'test.fasta') + ' ' + str(PATH / 'test') + ' ' + '--repr_layers 33 --include mean per_tok')
+            os.system('python esm/scripts/extract.py ' + esm_dict[args.esm_version] + ' ' + str(PATH / 'val.fasta') + ' ' + str(PATH / 'val') + ' ' + '--repr_layers 33 --include mean per_tok')
+        
+        if exit_code != 0:
+            raise FileNotFoundError("Have you run `git submodule update --init` to populate the `esm` submodule?")
+
     if args.concat_tensors:
         print('making empty tensors for train set')
         # train set
