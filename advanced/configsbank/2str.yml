@@ -1,0 +1,11 @@
+sequence_file: None
+labels_file: None
+protocol: residue_to_class
+model_choice: CNN
+optimizer_choice: adam
+loss_choice: cross_entropy_loss
+num_epochs: 20
+use_class_weights: False
+learning_rate: 1e-3
+batch_size: 128
+embedder_name: seqvec
