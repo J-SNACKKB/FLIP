@@ -27,7 +27,7 @@ split_dict = {
 #    'gb1_3': 'three_vs_rest',
 #    'gb1_4': 'sampled',
 #    'gb1_5': 'low_vs_high',
-    '2str': 'sampled',
+    'secondary_structure': 'sampled',
     'conservation': 'sampled'
 }
 
