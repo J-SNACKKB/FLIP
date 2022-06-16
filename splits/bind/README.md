@@ -8,6 +8,25 @@ The full dataset is divided in a development set and an independent set.The deve
 
 Due to the size of these files, they can be found at http://data.bioembeddings.com/public/FLIP/bind/.
 
+### Legend 
+
+As mentioned, the datasets work with 3 types of bindign residues:
+1. (S) Small molecules (S)
+2. (N) Nucleic acids (DNA and RNA) 
+3. (M) Metal ions (M)
+
+To encode this information, we use the following labels, following the binary pattern (SNM):
+1. 000 = No binding
+2. 001 = Metal
+3. 010 = Nucleic
+4. 011 = Nucleic + Metal
+5. 100 = Small
+6. 101 = Small + Metal
+7. 110 = Small + Nucleic
+8. 111 = Small + Nucleic + Metal
+
+This encoding allows for single-class multiclass and multi-class classification of the binding residues. The final encoding consists of integers from 0 to 7 for each residue, following the binary encoding.
+
 ### Splits
 
 All splits are classification splits as explained prior. Train/Test splits are done as follows.
@@ -29,7 +48,6 @@ All splits are contained in the `splits.zip` file. These are CSV with colums:
 - `set`: either `train` or `test`, if the sequence should be used for training or testing your model!
 - `validation`: When True, these are sequences for train that may be used for validation (e.g. early stopping).
 - `target`: the prediction target, which is string encoding of the sequence. Following the pattern SNM (for Small Nuclear Metal), 000 = No biding, 001 = Metal, 010 = Nuclear, 100 = Small. If we have a multiclass binding residue, e.g. has both Small and Metal, its encoding is 101 (for Small+Metal). This results in a string with integers from 0 to 7, where 0 = no binding, 1 = Metal, 2 = Nuclar, 3 = Nuclear+Metal, 4 = Small, 5 = Small+Metal, 6 = Small+Nuclear, 7 = Small+Nuclear+Metal.
-
 
 ### Cite
 From the publishers as Bibtex:
