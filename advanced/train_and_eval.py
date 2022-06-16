@@ -28,7 +28,7 @@ split_dict = {
 #    'gb1_4': 'sampled',
 #    'gb1_5': 'low_vs_high',
     '2str': 'sampled',
-    'conservations': 'sampled'
+    'conservation': 'sampled'
 }
 
 configs_bank = Path('') / 'configsbank'
