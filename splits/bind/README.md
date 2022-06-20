@@ -42,12 +42,15 @@ Splits ([semaphore legend](../../README.md#split-semaphore)):
     - 🟢 `one_vs_mn`: train as `one_vs_sm` but with balances classes, test on proteins with residues having Metal+Nuclear
     - 🟢 `one_vs_sn`: train as `one_vs_sm` but with balances classes, test on proteins with residues having Small+Nuclear
 
-All splits are contained in the `splits.zip` file. These are CSV with colums:
+All splits are contained in the `splits.zip` file. There are one `sequences.fasta` file with all the sequences of the splits in FASTA format and one FASTA file with the labels for each split, i.e. `one_vs_many.fasta`, `two_vs_many.fasta`, etc.
 
-- `sequence`: the AA sequence. May contain special characters!
-- `set`: either `train` or `test`, if the sequence should be used for training or testing your model!
-- `validation`: When True, these are sequences for train that may be used for validation (e.g. early stopping).
-- `target`: the prediction target, which is string encoding of the sequence. Following the pattern SNM (for Small Nuclear Metal), 000 = No biding, 001 = Metal, 010 = Nuclear, 100 = Small. If we have a multiclass binding residue, e.g. has both Small and Metal, its encoding is 101 (for Small+Metal). This results in a string with integers from 0 to 7, where 0 = no binding, 1 = Metal, 2 = Nuclar, 3 = Nuclear+Metal, 4 = Small, 5 = Small+Metal, 6 = Small+Nuclear, 7 = Small+Nuclear+Metal.
+The labels files are organized by sequence ID. Each sequence label has `SET` atribute (either `train` or `test`) and `VALIDATION` attribute (when True, these are sequences for train that may be used for validation (e.g. early stopping)). Example:
+```
+>Seq1 SET=train VALIDATION=False
+DVCDVVDD
+```
+
+The labels are string encodings of sequences. Following the pattern SNM (for Small Nuclear Metal): 000 = No biding, 001 = Metal, 010 = Nuclear, 100 = Small. If we have a multiclass binding residue, e.g. has both Small and Metal, its encoding is 101 (for Small+Metal). This results in a string with integers from 0 to 7, where 0 = no binding, 1 = Metal, 2 = Nuclar, 3 = Nuclear+Metal, 4 = Small, 5 = Small+Metal, 6 = Small+Nuclear, 7 = Small+Nuclear+Metal.
 
 ### Cite
 From the publishers as Bibtex:
