@@ -17,7 +17,7 @@ def residue_to_class_fasta(split_dir, destination_sequences_dir, destination_lab
             labels_file.write('>{}\n'.format('Sequence{} SET={} VALIDATION={}'.format(index, row['set'], validation)))
             labels_file.write('{}\n'.format(row['target']))
 
-def residue_to_value_fasta():
+def residue_to_value_fasta(split_dir, destination_sequences_dir, destination_labels_dir):
     pass # TODO: Standardization pending in biotrainer
 
 def protein_to_class_fasta(split_dir, destination_sequences_dir):
