@@ -30,7 +30,7 @@ Current splits ([semaphore legend](../README.md#split-semaphore)):
 - Bind
   - 🟢 `one_vs_many`
   - 🟢 `two_vs_many`
-  - 🟢 `three_vs_many`
+  - 🟢 `from_publication`
   - 🟢 `one_vs_sm`
   - 🟢 `one_vs_mn`
   - 🟢 `one_vs_sn`
