@@ -17,12 +17,15 @@ All splits are classification splits as explained prior. Train/Test splits are d
 Splits ([semaphore legend](../../README.md#split-semaphore)):
 - 🟠 `sampled`: Randomly split sequences into `train`/`test` with 95/5% probability.
 
-All splits are contained in the `splits.zip` file. These are CSV with colums:
+All splits are contained in the `splits.zip` file. There are one `sequences.fasta` file with all the sequences of the splits in FASTA format and one FASTA file with the labels for each split, in this case only one `sampled.fasta`file.
 
-- `sequence`: the AA sequence. May contain special characters!
-- `set`: either `train` or `test`, if the sequence should be used for training or testing your model!
-- `validation`: When True, these are sequences for train that may be used for validation (e.g. early stopping).
-- `target`: the prediction target, which is string encoding of the sequence. For each amino acid there is a secondary structure class (`H` for helix, `E` for sheet, `C` for coil).
+The labels files are organized by sequence ID. Each sequence label has `SET` atribute (either `train` or `test`) and `VALIDATION` attribute (when True, these are sequences for train that may be used for validation (e.g. early stopping)). Example:
+```
+>Seq1 SET=train VALIDATION=False
+HHHHHEEE
+```
+
+The labels are string encodings of sequences. For each amino acid there is a secondary structure class (`H` for helix, `E` for sheet, `C` for coil).
 
 ### Cite
 From the publishers as Bibtex:
