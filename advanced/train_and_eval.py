@@ -50,26 +50,33 @@ def prepare_data(split, protocol, working_dir):
         logging.info('Sequence and labels files already exists.')
         logging.info('Skipping data preparation.')
     else:
-        # Conversion CSV to FASTA
-        split_dir = splits / split.split('_')[0] / 'splits' / (split_dict[split] + '.csv')
         destination_sequences_dir = working_dir / 'sequences.fasta'
         destination_labels_dir = working_dir / 'labels.fasta'
-        
-        if protocol == 'residue_to_class':
-            logging.info('Converting CSV to FASTA for residue to class protocol.')
-            residue_to_class_fasta(split_dir, destination_sequences_dir, destination_labels_dir)
-            return destination_sequences_dir, destination_labels_dir
-        elif protocol == 'sequence_to_class':
-            logging.info('Converting CSV to FASTA for sequence to class protocol.')
-            # TODO: Standardization pending in biotrainer and FLIP
-        elif protocol == 'sequence_to_value':
-            logging.info('Converting CSV to FASTA for sequence to value protocol.')
-            protein_to_class_fasta(split_dir, destination_sequences_dir)
-            return destination_sequences_dir, None
-        elif protocol == 'residue_to_value':
-            logging.info('Converting CSV to FASTA for residue to value protocol.')
-            protein_to_value_fasta(split_dir, destination_sequences_dir)
-            return destination_sequences_dir, None
+
+        # Check if the split is already in FASTA format (sequences.fasta + name_of_split.fasta (with the labels))
+        if os.path.exists(splits / split.split(' ')[0] / 'splits' / 'sequences.fasta') and os.path.exists(splits / split.split('_')[0] / 'splits' / (split_dict[split] + '.fasta')):
+            shutil.copyfile(splits / split.split(' ')[0] / 'splits' / 'sequences.fasta', destination_sequences_dir)
+            shutil.copyfile(splits / split.split('_')[0] / 'splits' / (split_dict[split] + '.fasta'), destination_labels_dir)
+        else:
+            # If the split is not already in FASTA format we convert CSV to FASTA
+            split_dir = splits / split.split('_')[0] / 'splits' / (split_dict[split] + '.csv')
+            
+            if protocol == 'residue_to_class':
+                logging.info('Converting CSV to FASTA for residue to class protocol.')
+                residue_to_class_fasta(split_dir, destination_sequences_dir, destination_labels_dir)
+                return destination_sequences_dir, destination_labels_dir
+            elif protocol == 'sequence_to_class':
+                logging.info('Converting CSV to FASTA for sequence to class protocol.')
+                protein_to_value_fasta(split_dir, destination_sequences_dir, destination_labels_dir)
+                return destination_sequences_dir, destination_labels_dir
+            elif protocol == 'sequence_to_value':
+                logging.info('Converting CSV to FASTA for sequence to value protocol.')
+                protein_to_class_fasta(split_dir, destination_sequences_dir)
+                return destination_sequences_dir, None
+            elif protocol == 'residue_to_value':
+                logging.info('Converting CSV to FASTA for residue to value protocol.')
+                protein_to_value_fasta(split_dir, destination_sequences_dir)
+                return destination_sequences_dir, None
 
 def main(args):
     # Get path of the configuration file from configsbank or the provided one

@@ -18,7 +18,7 @@ def residue_to_class_fasta(split_dir, destination_sequences_dir, destination_lab
             labels_file.write('{}\n'.format(row['target']))
 
 def residue_to_value_fasta():
-    pass # TODO: Standardization pending in biotrainer and FLIP
+    pass # TODO: Standardization pending in biotrainer
 
 def protein_to_class_fasta(split_dir, destination_sequences_dir):
     split = read_csv(split_dir)

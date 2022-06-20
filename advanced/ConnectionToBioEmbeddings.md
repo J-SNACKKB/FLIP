@@ -48,7 +48,7 @@ Havin just one template config file, and with `--embedder` and `--model` argumen
 2. Prepare the output folder and data.
   2.1. Create the output folder.
   2.2. Create copy of the config template file in the output folder.
-  2.3. Convert the FLIP CSV files for the given split to required by biotrainer FASTA files. Save the FASTA files in the output folder.
+  2.3. If available in FASTA format, get FASTA files of the selected split (in biotrainer standardization). Otherwise, convert the FLIP CSV files for the given split to required by biotrainer FASTA files. Save the FASTA files in the output folder.
   2.4 Modify the config file in the output folder with the provided arguments and paths to the FASTA files.
 3. Pass the control to biotrainer with a call.
 
