@@ -1,6 +1,6 @@
 ### Dataset description
 
-The six Bind splits stem from a [??? publication](???) which aims at predicting neutral/effect Single Aminoacid Variants (SAVs) in proteins.
+The three SAV splits stem from a [??? publication](???) which aims at predicting neutral/effect Single Aminoacid Variants (SAVs) in proteins.
 
 ### Full dataset
 
@@ -13,7 +13,7 @@ Due to the size of these files, they can be found at http://data.bioembeddings.c
 All splits are classification splits as explained prior. Train/Test splits are done as follows.
 
 Splits ([semaphore legend](../../README.md#split-semaphore)):
-- `mixed`: train on wildtypes and training folds 0-8, test on test fold 9
+- `mixed`: train on wildtypes (with target `neutral`) and training folds 0-8, test on test fold 9
 - `human`: same as mixed but only with human proteins
 - `only_savs`: same as mixed but without wildtypes
 
@@ -22,7 +22,7 @@ All splits are contained in the `splits.zip` file. These are CSV with colums:
 - `sequence`: the AA sequence. May contain special characters!
 - `set`: either `train` or `test`, if the sequence should be used for training or testing your model!
 - `validation`: When True, these are sequences for train that may be used for validation (e.g. early stopping).
-- `target`: the prediction target, which is a string encoding of the sequence. Each AA is encoded as 0 for not mutated, 1 for neutral SAV and 2 for effect SAV.
+- `target`: the prediction target, which can be `effect` or `neutral`
 
 ### Cite
 From the publishers as Bibtex:
