@@ -11,9 +11,9 @@ Due to the size of these files, they can be found at http://data.bioembeddings.c
 ### Legend 
 
 As mentioned, the datasets work with 3 types of bindign residues:
-1. (S) Small molecules (S)
+1. (S) Small molecules
 2. (N) Nucleic acids (DNA and RNA) 
-3. (M) Metal ions (M)
+3. (M) Metal ions
 
 To encode this information, we use the following labels, following the binary pattern (SNM):
 1. 000 = No binding
@@ -25,7 +25,7 @@ To encode this information, we use the following labels, following the binary pa
 7. 110 = Small + Nucleic
 8. 111 = Small + Nucleic + Metal
 
-This encoding allows for single-class multiclass and multi-class classification of the binding residues. The final encoding consists of integers from 0 to 7 for each residue, following the binary encoding.
+This encoding allows for single-class classification and multi-class classification of the binding residues. The final encoding consists of integers from 0 to 7 for each residue, following the binary encoding.
 
 ### Splits
 
@@ -38,19 +38,19 @@ Splits ([semaphore legend](../../README.md#split-semaphore)):
     - 🟢 `three_vs_many`: train on proteins with 1, 2 or 3 types of ligand from original training set, test on original test sets TestSet300 and TestSetNew46 mixed.
 
 - Working at residue-level (train on sequences with residues assigned to only 1 type of ligand, test on sequences with residues assigned to multiple classes (~4% of the residues have more than one type of ligand)):
-    - 🟢 `one_vs_sm`: train on proteins with residues having only one type of ligand, test on proteins with residues having Small+Metal ligands
-    - 🟢 `one_vs_mn`: train as `one_vs_sm` but with balances classes, test on proteins with residues having Metal+Nuclear
-    - 🟢 `one_vs_sn`: train as `one_vs_sm` but with balances classes, test on proteins with residues having Small+Nuclear
+    - 🟢 `one_vs_sm`: train on proteins with residues having only one type of ligand, test on proteins with residues having Small + Metal ligands
+    - 🟢 `one_vs_mn`: train as `one_vs_sm` but with balances classes, test on proteins with residues having Metal + Nuclear
+    - 🟢 `one_vs_sn`: train as `one_vs_sm` but with balances classes, test on proteins with residues having Small + Nuclear
 
 All splits are contained in the `splits.zip` file. There are one `sequences.fasta` file with all the sequences of the splits in FASTA format and one FASTA file with the labels for each split, i.e. `one_vs_many.fasta`, `two_vs_many.fasta`, etc.
 
 The labels files are organized by sequence ID. Each sequence label has `SET` atribute (either `train` or `test`) and `VALIDATION` attribute (when True, these are sequences for train that may be used for validation (e.g. early stopping)). Example:
 ```
 >Seq1 SET=train VALIDATION=False
-DVCDVVDD
+00011100
 ```
 
-The labels are string encodings of sequences. Following the pattern SNM (for Small Nuclear Metal): 000 = No biding, 001 = Metal, 010 = Nuclear, 100 = Small. If we have a multiclass binding residue, e.g. has both Small and Metal, its encoding is 101 (for Small+Metal). This results in a string with integers from 0 to 7, where 0 = no binding, 1 = Metal, 2 = Nuclar, 3 = Nuclear+Metal, 4 = Small, 5 = Small+Metal, 6 = Small+Nuclear, 7 = Small+Nuclear+Metal.
+The labels are string encodings of sequences. Following the pattern SNM (for Small Nuclear Metal): 000 = No biding, 001 = Metal, 010 = Nuclear, 100 = Small. If we have a multiclass binding residue, e.g. has both Small and Metal, its encoding is 101 (for Small+Metal). This results in a string with integers from 0 to 7, where 0 = no binding, 1 = Metal, 2 = Nuclar, 3 = Nuclear + Metal, 4 = Small, 5 = Small + Metal, 6 = Small + Nuclear, 7 = Small + Nuclear + Metal.
 
 ### Cite
 From the publishers as Bibtex:
