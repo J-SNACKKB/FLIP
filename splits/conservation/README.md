@@ -1,6 +1,6 @@
 ### Dataset description
 
-The Coervation split stem from a [2021 publication](https://link.springer.com/article/10.1007/s00439-021-02411-y) which aims at predicting the conservation score of the residues of a protein sequence.
+The Conservation split stem from a [2021 publication](https://link.springer.com/article/10.1007/s00439-021-02411-y) which aims at predicting the conservation score of the residues of a protein sequence.
 
 This is a well-known dataset and it is used to validate the behavior of code and models. Only provided a `sampled` split for this purpose.
 

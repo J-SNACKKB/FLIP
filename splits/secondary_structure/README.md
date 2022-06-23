@@ -1,14 +1,14 @@
 ### Dataset description
 
-The 2STR split stem from a [???? publication](????) which aims at predicting the conservation score of the residues of a protein sequence.
+The secondary structure split stem from a [???? publication](????) which aims at predicting the conservation score of the residues of a protein sequence.
 
 This is a well-known dataset and it is used to validate the behavior of code and models. Only provided a `sampled` split for this purpose.
 
 ### Full dataset
 
-The full dataset is divided in `train.jsonl`, a JSONL file with proteins for training. Each line is a sample with id, sequence, label and resolved (ignored) (9712 proteins); `val.jsonl`, a JSONL file with proteins for validation. Each line is a sample with id, sequence, label and resolved (ignored) (1080 proteins); and `new_pisces.jsonl`, a JSONL file with proteins for testing. Each line is a sample with id, sequence, label and resolved (ignored) (648 proteins).
+The full dataset is divided in `train.jsonl`, `val.jsonl` and `new_pisces.jsonl`, JSONL files with proteins for training, validation and testing. Each line is a sample with id, sequence, label and resolved. There are 9712 proteins for training, 1080 proteins for validation and 648 proteins for testing.
 
-Due to the size of these files, they can be found at http://data.bioembeddings.com/public/FLIP/2str/.
+Due to the size of these files, they can be found at http://data.bioembeddings.com/public/FLIP/secondary_structure/.
 
 ### Splits
 
@@ -17,7 +17,7 @@ All splits are classification splits as explained prior. Train/Test splits are d
 Splits ([semaphore legend](../../README.md#split-semaphore)):
 - 🟠 `sampled`: Randomly split sequences into `train`/`test` with 95/5% probability.
 
-All splits are contained in the `splits.zip` file. There are one `sequences.fasta` file with all the sequences of the splits in FASTA format and one FASTA file with the labels for each split, in this case only one `sampled.fasta`file.
+All splits are contained in the `splits.zip` file. There is one `sequences.fasta` file with all the sequences of the splits in FASTA format and one FASTA file with the labels for each split, in this case only one `sampled.fasta`file.
 
 The labels files are organized by sequence ID. Each sequence label has `SET` atribute (either `train` or `test`) and `VALIDATION` attribute (when True, these are sequences for train that may be used for validation (e.g. early stopping)). Example:
 ```
