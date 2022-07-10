@@ -27,6 +27,13 @@ Current splits ([semaphore legend](../README.md#split-semaphore)):
   - 🟢 `human_hard`
   - 🟢 `balanced`
   - 🟢 `mixed_vs_human_2`
+- Bind
+  - 🟢 `one_vs_many`
+  - 🟢 `two_vs_many`
+  - 🟢 `from_publication`
+  - 🟢 `one_vs_sm`
+  - 🟢 `one_vs_mn`
+  - 🟢 `one_vs_sn`
 - SAV
   - 🟢 `mixed`
   - 🟢 `human`
