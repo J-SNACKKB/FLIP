@@ -38,6 +38,10 @@ Current splits ([semaphore legend](../README.md#split-semaphore)):
   - 🟢 `mixed`
   - 🟢 `human`
   - 🟢 `only_savs`
+- Secondary Structure
+  - 🟢 `sampled`
+- Conservation
+  - 🟢 `sampled`
 - CAS9
   - 🔴 `positive_selection`
   - 🔴 `negative_selection`
