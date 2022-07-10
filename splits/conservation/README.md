@@ -15,7 +15,7 @@ Due to the size of these files, they can be found at http://data.bioembeddings.c
 All splits are classification splits as explained prior. Train/Test splits are done as follows.
 
 Splits ([semaphore legend](../../README.md#split-semaphore)):
-- 🟠 `sampled`: Randomly split sequences into `train`/`test` with 95/5% probability.
+- 🟢 `sampled`: Randomly split sequences into `train`/`test` with 95/5% probability.
 
 All splits are contained in the `splits.zip` file. There are one `sequences.fasta` file with all the sequences of the splits in FASTA format and one FASTA file with the labels for each split, in this case only one `sampled.fasta`file.
 
