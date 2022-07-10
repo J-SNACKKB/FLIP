@@ -34,6 +34,10 @@ Current splits ([semaphore legend](../README.md#split-semaphore)):
   - 🟢 `one_vs_sm`
   - 🟢 `one_vs_mn`
   - 🟢 `one_vs_sn`
+- Secondary Structure
+  - 🟢 `sampled`
+- Conservation
+  - 🟢 `sampled`
 - CAS9
   - 🔴 `positive_selection`
   - 🔴 `negative_selection`
