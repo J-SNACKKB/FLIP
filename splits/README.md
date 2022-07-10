@@ -34,6 +34,10 @@ Current splits ([semaphore legend](../README.md#split-semaphore)):
   - 🟢 `one_vs_sm`
   - 🟢 `one_vs_mn`
   - 🟢 `one_vs_sn`
+- SAV
+  - 🟢 `mixed`
+  - 🟢 `human`
+  - 🟢 `only_savs`
 - Secondary Structure
   - 🟢 `sampled`
 - Conservation
