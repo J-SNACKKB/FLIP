@@ -1,6 +1,6 @@
 ### Dataset description
 
-The three SAV splits stem from a [??? publication](???) which aims at predicting neutral/effect Single Aminoacid Variants (SAVs) in proteins.
+The three SAV splits stem from a [2021 publication](https://link.springer.com/article/10.1007/s00439-021-02411-y) and a [2015 publication](https://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-16-S8-S1) which aim at predicting neutral/effect Single Aminoacid Variants (SAVs) in proteins.
 
 ### Full dataset
 
@@ -26,7 +26,28 @@ All splits are contained in the `splits.zip` file. These are CSV with colums:
 
 ### Cite
 From the publishers as Bibtex:
-
+```
+@article{marquet2021embeddings,
+  title={Embeddings from protein language models predict conservation and variant effects},
+  author={Marquet, C{\'e}line and Heinzinger, Michael and Olenyi, Tobias and Dallago, Christian and Erckert, Kyra and Bernhofer, Michael and Nechaev, Dmitrii and Rost, Burkhard},
+  journal={Human genetics},
+  pages={1--19},
+  year={2021},
+  publisher={Springer}
+}
+```
+```
+@article{hecht2015better,
+  title={Better prediction of functional effects for sequence variants},
+  author={Hecht, Maximilian and Bromberg, Yana and Rost, Burkhard},
+  journal={BMC genomics},
+  volume={16},
+  number={8},
+  pages={1--12},
+  year={2015},
+  publisher={BioMed Central}
+}
+```
 
 ### Data licensing
 
