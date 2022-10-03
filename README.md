@@ -11,6 +11,8 @@ This repository is for the paper submitted to the 2021 NeurIPS Benchmark track.
 
 A `.gitignore`d folder called `data` contains RAW data used to produce all splits. As the folder size is substantial, it could not be shipped with GitHub. However, it can be accessed here: http://data.bioembeddings.com/public/FLIP
 
+[Here](http://data.bioembeddings.com/public/FLIP/fasta/) are available all the FLIP datasets in FASTA format (following the standardization proposed in [biotrainer](https://github.com/sacdallago/biotrainer)).
+
 ## Find out more about the splits
 
 The goal of the splits in this repository is to assess how well machine learning devices using protein sequence inputs can represent different dimensions relevant for protein design.
