@@ -29,7 +29,7 @@ The labels are string encodings of sequences. For each amino acid there is a sec
 
 ### Cite
 From the publishers as Bibtex:
-```
+```bibtex
 @Article{klausen2019netsurfp,
 title={NetSurfP-2.0: Improved prediction of protein structural features by integrated deep learning},
 author={Klausen, Michael Schantz and Jespersen, Martin Closter and Nielsen, Henrik and Jensen, Kamilla Kjaergaard and Jurtz, Vanessa Isabell and Soenderby, Casper Kaae and Sommer, Morten Otto Alexander and Winther, Ole and Nielsen, Morten and Petersen, Bent and others},
@@ -41,7 +41,7 @@ year={2019},
 publisher={Wiley Online Library}
 }
 ```
-```
+```bibtex
 @Article{9477085,
 author={Elnaggar, Ahmed and Heinzinger, Michael and Dallago, Christian and Rehawi, Ghalia and Wang, Yu and Jones, Llion and Gibbs, Tom and Feher, Tamas and Angerer, Christoph and Steinegger, Martin and Bhowmik, Debsindhu and Rost, Burkhard},
 journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
@@ -51,8 +51,9 @@ volume={},
 number={},
 pages={1-1},
 doi={10.1109/TPAMI.2021.3095381}
+}
 ```
-```
+```bibtex
 @Article{moult2018critical,
 title={Critical assessment of methods of protein structure prediction (CASP)—Round XII},
 author={Moult, John and Fidelis, Krzysztof and Kryshtafovych, Andriy and Schwede, Torsten and Tramontano, Anna},
@@ -61,6 +62,7 @@ volume={86},
 pages={7--15},
 year={2018},
 publisher={Wiley Online Library}
+}
 ```
 
 ### Data licensing

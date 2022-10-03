@@ -26,7 +26,7 @@ All splits are contained in the `splits.zip` file. These are CSV with colums:
 
 ### Cite
 From the publishers as Bibtex:
-```
+```bibtex
 @article{marquet2021embeddings,
   title={Embeddings from protein language models predict conservation and variant effects},
   author={Marquet, C{\'e}line and Heinzinger, Michael and Olenyi, Tobias and Dallago, Christian and Erckert, Kyra and Bernhofer, Michael and Nechaev, Dmitrii and Rost, Burkhard},
@@ -36,7 +36,7 @@ From the publishers as Bibtex:
   publisher={Springer}
 }
 ```
-```
+```bibtex
 @article{hecht2015better,
   title={Better prediction of functional effects for sequence variants},
   author={Hecht, Maximilian and Bromberg, Yana and Rost, Burkhard},
