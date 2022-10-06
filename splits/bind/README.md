@@ -35,12 +35,12 @@ Splits ([semaphore legend](../../README.md#split-semaphore)):
 - Working at protein-level (train on sequences with X ligan type(s), test on else (~18% of the proteins have >1 type of ligand)):
     - 🟢 `one_vs_many`: train on proteins with only 1 type of ligand, test on proteins with 2 and 3 types of ligands
     - 🟢 `two_vs_many`: train on proteins with 1 or 2 types of ligand, test on proteins with 3 types of ligand
-    - 🟢 `three_vs_many`: train on proteins with 1, 2 or 3 types of ligand from original training set, test on original test sets TestSet300 and TestSetNew46 mixed.
+    - 🟢 `from_publication`: train on proteins with 1, 2 or 3 types of ligand from original training set, test on original test sets TestSet300 and TestSetNew46 mixed.
 
 - Working at residue-level (train on sequences with residues assigned to only 1 type of ligand, test on sequences with residues assigned to multiple classes (~4% of the residues have more than one type of ligand)):
     - 🟢 `one_vs_sm`: train on proteins with residues having only one type of ligand, test on proteins with residues having Small + Metal ligands
-    - 🟢 `one_vs_mn`: train as `one_vs_sm` but with balances classes, test on proteins with residues having Metal + Nuclear
-    - 🟢 `one_vs_sn`: train as `one_vs_sm` but with balances classes, test on proteins with residues having Small + Nuclear
+    - 🟢 `one_vs_mn`: train as `one_vs_sm` but with balanced classes, test on proteins with residues having Metal + Nuclear
+    - 🟢 `one_vs_sn`: train as `one_vs_sm` but with balanced classes, test on proteins with residues having Small + Nuclear
 
 All splits are contained in the `splits.zip` file. There are one `sequences.fasta` file with all the sequences of the splits in FASTA format and one FASTA file with the labels for each split, i.e. `one_vs_many.fasta`, `two_vs_many.fasta`, etc.
 
@@ -54,7 +54,7 @@ The labels are string encodings of sequences. Following the pattern SNM (for Sma
 
 ### Cite
 From the publishers as Bibtex:
-```
+```bibtex
 @article{littmann2021protein,
 title={Protein embeddings and deep learning predict binding residues for various ligand classes},
 author={Littmann, Maria and Heinzinger, Michael and Dallago, Christian and Weissenow, Konstantin and Rost, Burkhard},

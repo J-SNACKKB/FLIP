@@ -20,8 +20,8 @@ Splits ([semaphore legend](../../README.md#split-semaphore)):
 - From DeepLoc 1.0:
     - 🟢 `mixed_soft`: DeepLoc 1.0 Train + DeepLoc 1.0 Validation + DeepLoc 1.0 Test
     - 🟢 `mixed_hard`: DeepLoc 1.0 Train + DeepLoc 1.0 Validation + testHARD Test
-    - 🟢 `human_soft`: DeepLoc 1.0 train + DeepLoc 1.0 validation + DeepLoc 1.0 test (only human proteins)
-    - 🟢 `human_hard`: DeepLoc 1.0 train + DeepLoc 1.0 validation + DeepLoc 1.0 test (only human proteins)
+    - 🟢 `human_soft`: DeepLoc 1.0 Train + DeepLoc 1.0 Validation + DeepLoc 1.0 Test (only human proteins)
+    - 🟢 `human_hard`: DeepLoc 1.0 Train + DeepLoc 1.0 Validation + testHARD Test (only human proteins)
     - 🟢 `balanced`: Same as `mixed_hard` but with the test set classes balanced with respect to the training set
 - From DeepLoc 2.0:
     - 🟢 `mixed_vs_human_2`: DeepLoc 2.0 Train (mixed, multi-label) + DeepLoc 2.0 Validation (mixed, multi-label) + DeepLoc 2.0 test (human, multi-label)
@@ -36,7 +36,7 @@ All splits are contained in the `splits.zip` file. These are CSV with colums:
 
 ### Cite
 From the publishers as Bibtex:
-```
+```bibtex
 @article{10.1093/bioadv/vbab035,
 author = {Stärk, Hannes and Dallago, Christian and Heinzinger, Michael and Rost, Burkhard},
 title = "{Light attention predicts protein location from the language of life}",
@@ -54,7 +54,7 @@ eprint = {https://academic.oup.com/bioinformaticsadvances/article-pdf/1/1/vbab03
 }
 ```
 
-```
+```bibtex
 @article{10.1093/bioinformatics/btx431,
 author = {Almagro Armenteros, José Juan and Sønderby, Casper Kaae and Sønderby, Søren Kaae and Nielsen, Henrik and Winther, Ole},
 title = "{DeepLoc: prediction of protein subcellular localization using deep learning}",
@@ -72,7 +72,7 @@ eprint = {https://academic.oup.com/bioinformatics/article-pdf/33/21/3387/2516606
 }
 ```
 
-```
+```bibtex
 @article{10.1093/nar/gkac278,
 author = {Thumuluri, Vineet and Almagro Armenteros, José Juan and Johansen, Alexander Rosenberg and Nielsen, Henrik and Winther, Ole},
 title = "{DeepLoc 2.0: multi-label subcellular localization prediction using protein language models}",

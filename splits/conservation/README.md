@@ -29,7 +29,7 @@ The labels are string encodings of sequences.  For each amino acid there is a co
 
 ### Cite
 From the publishers as Bibtex:
-```
+```bibtex
 @article{marquet2021embeddings,
 title={Embeddings from protein language models predict conservation and variant effects},
 author={Marquet, C{\'e}line and Heinzinger, Michael and Olenyi, Tobias and Dallago, Christian and Erckert, Kyra and Bernhofer, Michael and Nechaev, Dmitrii and Rost, Burkhard},
