@@ -6,7 +6,7 @@ The three SAV splits stem from a [2021 publication](https://link.springer.com/ar
 
 The full dataset is divided in one `sequences.fasta` file with all the wildtypes and different `.effect` files with the effect and neutral variants. The training/test folds are 9. Number 0 to 8 for testing and number 9 for testing.
 
-Due to the size of these files, they can be found at http://data.bioembeddings.com/public/FLIP/savs/.
+Due to the size of these files, they can be found at http://data.bioembeddings.com/public/FLIP/fasta/savs/.
 
 ### Splits
 

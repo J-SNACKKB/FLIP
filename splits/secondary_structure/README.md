@@ -8,7 +8,7 @@ This is a well-known dataset and it is used to validate the behavior of code and
 
 The full dataset is divided in `train.jsonl`, `val.jsonl` and `new_pisces.jsonl`, JSONL files with proteins for training, validation and testing. Each line is a sample with id, sequence, label and resolved. There are 9712 proteins for training, 1080 proteins for validation and 648 proteins for testing.
 
-Due to the size of these files, they can be found at http://data.bioembeddings.com/public/FLIP/secondary_structure/.
+Due to the size of these files, they can be found at http://data.bioembeddings.com/public/FLIP/fasta/secondary_structure/.
 
 ### Splits
 

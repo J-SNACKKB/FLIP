@@ -6,7 +6,7 @@ The six Bind splits stem from a [2021 publication](https://www.nature.com/articl
 
 The full dataset is divided in a development set and an independent set.The development set contains `all.fasta` with all information associated to proteins; `binding_residues_2.5_metal.txt`, `binding_residues_2.5_nuclear.txt` and `binding_residues_2.5_small.txt` with the binding residues for each protein ID; and `uniprot_test.txt` contains the IDs of the proteins for testing (set named TestSet300). The independent set contains the same files but with proteins originally selected only for testing (set named TestSetNew46).
 
-Due to the size of these files, they can be found at http://data.bioembeddings.com/public/FLIP/bind/.
+Due to the size of these files, they can be found at http://data.bioembeddings.com/public/FLIP/fasta/bind/.
 
 ### Legend 
 

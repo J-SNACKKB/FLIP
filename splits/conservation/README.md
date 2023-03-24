@@ -8,7 +8,7 @@ This is a well-known dataset and it is used to validate the behavior of code and
 
 The full dataset is divided in `seq_and_conservation.txt`, a FASTA file with 3 lines per entry: amino acid sequence, cotinuous conservation scores (ignored), conservation classes between 1 and 9 (1 = very variable, 9 = very conserved); `train_ids.txt`, IDs of the proteins for training (9392 proteins); `val_ids.txt`, IDs of the proteins for validation (555 proteins); and `test_ids.txt`, IDs of the proteins for testing (519 proteins).
 
-Due to the size of these files, they can be found at http://data.bioembeddings.com/public/FLIP/conservation/.
+Due to the size of these files, they can be found at http://data.bioembeddings.com/public/FLIP/fasta/conservation/.
 
 ### Splits
 
