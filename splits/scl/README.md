@@ -10,7 +10,7 @@ The `deeploc_our_train_set.fasta`, `deeploc_our_val_set.fasta`, `deeploc_our_tes
 
 The `Swissprot_Train_Validation_dataset.csv` and the `hpa_testset.csv` are the training/validation and test set from the [DeepLoc v2 2022 publicaiton](https://academic.oup.com/nar/advance-article/doi/10.1093/nar/gkac278/6576357) used to create the DeepLoc 2.0 split.
 
-Due to the size of these files, they can be found at http://data.bioembeddings.com/public/FLIP/scl/.
+Due to the size of these files, they can be found at http://data.bioembeddings.com/public/FLIP/fasta/scl/.
 
 ### Splits
 
