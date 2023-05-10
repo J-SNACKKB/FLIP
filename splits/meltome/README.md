@@ -49,7 +49,7 @@ The cluster file `meltome_PIDE20_clusters.tsv` was used to create train/test spl
 
 ### Splits
 
-The train/test splits were computed by splitting the clusters. 80% of the clusters were used for training, while 20% were used for training.
+The train/test splits were computed by splitting the clusters. 80% of the clusters were used for training, while 20% were used for testing.
 
 Splits ([semaphore legend](../../README.md#split-semaphore)):
 - 🟢 `mixed`: uses cluster components for training and cluster representatives for testing (goal: avoid overestimaiting performance on big clusters in the test set)
