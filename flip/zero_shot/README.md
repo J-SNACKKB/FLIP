@@ -1,7 +1,7 @@
 Use this module to make zero-shot predictions with ESM models. Examples follow:
 
 ```python
-from helpers.zero_shot import EsmPredictor, EsmMsaPredictor, MSA
+from flip.zero_shot import EsmPredictor, EsmMsaPredictor, MSA
 
 # To make predictions using a sequence-based model
 parent_sequence = "ACDEFGHIKLMNPQRSTVWY"

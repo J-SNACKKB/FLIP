@@ -1,4 +1,4 @@
-name: flip3
+name: flip
 channels:
   - defaults
   - pytorch
@@ -18,6 +18,14 @@ dependencies:
   - jupyter
   - tqdm
   - typeguard
+  - pyyaml
+  - requests
+  - beautifulsoup4
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - openpyxl
   - pip:
       - fair-esm
+      - webdataset
       - -e .
