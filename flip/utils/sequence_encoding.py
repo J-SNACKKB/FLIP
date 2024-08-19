@@ -10,7 +10,7 @@ Functions:
 
 import numpy as np
 from Bio.Align import substitution_matrices
-from ..zero_shot.global_parameters import ALL_AAS
+from flip.zero_shot.global_parameters import ALL_AAS
 
 def sequence_to_blosum62(sequence: str) -> np.ndarray:
     """

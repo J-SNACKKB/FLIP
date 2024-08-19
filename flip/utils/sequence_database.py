@@ -6,7 +6,8 @@ into a SequenceDatabase object.
 
 from typing import List, Optional, Union
 import pandas as pd
-from .sequence_encoding import sequence_to_blosum62, sequence_to_one_hot, sequence_to_esm2
+from flip.utils.sequence_encoding import sequence_to_blosum62, sequence_to_one_hot, sequence_to_esm2
+
 
 class SequenceDatabase:
     """
