@@ -1,10 +1,31 @@
-# Micromamba environment file
-# https://marketplace.visualstudio.com/items?itemName=corker.vscode-micromamba
-
-name: default
-
+name: flip
 channels:
+  - defaults
+  - pytorch
   - conda-forge
-
+  - nvidia
 dependencies:
-  - python
+  - biopython
+  - pandas
+  - pdoc3
+  - pip
+  - python>=3.10
+  - pytorch
+  - pytorch-cuda=11.8
+  - numpy
+  - torchaudio
+  - torchvision
+  - jupyter
+  - tqdm
+  - typeguard
+  - pyyaml
+  - requests
+  - beautifulsoup4
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - openpyxl
+  - pip:
+      - fair-esm
+      - webdataset
+      - -e .
