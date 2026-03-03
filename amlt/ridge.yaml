@@ -1,0 +1,50 @@
+description: Results on FLIPv3.
+
+target:
+  service: sing
+  name: msrresrchvc
+  workspace_name: bio0
+
+environment:
+  image: amlt-sing/acpt-torch2.7.0-py3.10-cuda12.6-ubuntu22.04
+  setup:
+    - cd sequence_models
+    - pip install -U --user -e .
+    - cd ..
+    - pip install biopython
+    - pip install esm
+    - pip install scikit-learn
+    - pip install scipy
+storage:
+  amlt:
+    storage_account_name: kevyaneastus2
+    container_name: amlt
+code:
+    local_dir: src/
+search:
+  job_template:
+    name: "ridge_{task}"
+    sku: C3
+    command:
+      - python FLIPv3/baselines/linear_models.py /mnt/amlt/data/flip_data/datasets/ /mnt/amlt/flip_results/ {task}
+    mpi: True
+    submit_args:
+      env:
+        WANDB_BASE_URL: "https://microsoft-research.wandb.io"
+        WANDB_API_KEY: "$WANDB_API_KEY"
+        WANDB_ENTITY: "bio"
+        NCCL_DEBUG: "INFO"
+        NCCL_SOCKET_IFNAME: "bond0"
+        NCCL_CUMEM_ENABLE: 0
+        NCCL_DEBUG_SUBSYS: "ALL"
+        TORCH_DISTRIBUTED_DEBUG: "INFO"
+        _AZUREML_SINGULARITY_JOB_UAI: "/subscriptions/7be94754-107d-43b8-b840-202dff0e7cae/resourceGroups/bio0/providers/Microsoft.ManagedIdentity/userAssignedIdentities/bio0-uai"
+    tags: [Project_Name:Biomedical_ML,ProjectID:PRJ-0045-A32,Experiment:Bio-0]
+  type: random
+  max_trials: 25
+  params:
+    - name: task
+      spec: discrete
+      values: [trpb_trpB_four_to_three_split, trpb_trpB_no_position_overlap_split, trpb_trpB_one_vs_many_split, trpb_trpB_three_to_four_split, trpb_trpB_two_vs_many_split,
+                NucB_easy, NucB_medium, NucB_hard
+      ]
